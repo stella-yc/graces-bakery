@@ -1,7 +1,7 @@
 {
-  "name": "boilermaker",
+  "name": "graces-bakery",
   "version": "1.0.0",
-  "description": "Some boilerplate code to get you started - get shakin'!",
+  "description": "An ecommerce website",
   "engines": {
     "node": ">= 7.0.0"
   },
@@ -13,7 +13,7 @@
     "start": "node server",
     "start-dev": "npm run build-client-watch & npm run start-server",
     "start-server": "NODE_ENV='development' nodemon server -e html,js,scss --ignore public",
-    "test": "NODE_ENV='test' DATABASE_URL='postgres://localhost:5432/boilermaker-test' mocha ./**/*.spec.js --compilers js:babel-register"
+    "test": "NODE_ENV='test' DATABASE_URL='postgres://localhost:5432/graces-bakery' mocha ./**/*.spec.js --compilers js:babel-register"
   },
   "author": "",
   "license": "ISC",
@@ -23,6 +23,7 @@
     "connect-session-sequelize": "^4.1.0",
     "express": "^4.14.1",
     "express-session": "^1.15.1",
+    "global": "^4.3.2",
     "history": "^4.6.3",
     "morgan": "^1.8.1",
     "passport": "^0.3.2",
