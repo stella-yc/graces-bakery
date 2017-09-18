@@ -81,6 +81,15 @@ const seedCategAndProd = (cModel, cData, pModel, pData) => {
     });
 };
 
+const testingLogin = (uModel) => {
+  return uModel.create({
+    firstName: 'God',
+    lastName: 'Almighty',
+    email: 'god@heaven.com',
+    password: '123'
+  });
+};
+
 const userData = {
   firstName: ['Azula', 'Louie', 'Olive', 'Clover', 'Zuko', 'Bird', 'Lewis', 'Lelouch', 'Arya', 'Samwise', 'Mob', 'Kenan', 'Dickon'],
   lastName: ['Rat', 'Cat', 'Smith', 'Black', 'White', 'Gray', 'Brown', 'Strange', 'Gamgee', 'Stark', 'Lannister', 'Targaeryan', 'Tyrell'],
@@ -105,5 +114,6 @@ const categoryData = {
 db.sync({force: true})
   .then(() => seedModel(user, generateRandomInstances(userData)))
   .then(() => seedCategAndProd(category, generateInstances(categoryData), product, generateRandomInstances(productData)))
+  .then(() => testingLogin(user))
   .then(() => console.log('All models have been seeded.'))
-  .catch(err => console.err(err));
+  .catch(err => console.error(err));
