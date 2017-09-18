@@ -22,8 +22,16 @@ const Product = db.define('product', {
     defaultValue: 'https://cdn.tutsplus.com/net/uploads/legacy/958_placeholders/placehold.gif',
     validate: {
       isUrl: true
-    }
+    },
+    get() {
+      const imgName = this.getDataValue('image');
+      // 'this' allows you to access attributes of the instance
+      return `/public/img/${imgName}`;
+    },
   }
+},
+{
+
 });
 
 module.exports = Product;
