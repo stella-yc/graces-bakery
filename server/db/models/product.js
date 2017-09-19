@@ -1,5 +1,6 @@
 const Sequelize = require('sequelize');
 const db = require('../db');
+const Category = require('./category');
 
 const Product = db.define('product', {
   name: {
@@ -31,7 +32,13 @@ const Product = db.define('product', {
   }
 },
 {
-
+  scopes: {
+    categories: () => ({
+      include: [{
+        model: Category
+      }]
+    })
+  }
 });
 
 module.exports = Product;
