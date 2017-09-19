@@ -30,7 +30,9 @@ const adminOnly = (req, res, next) => {
 
 const selfOrAdmin = (req, res, next) => {
   isLoggedIn(req.user);
-  if (!req.user.isAdmin && req.params.uid !== req.user.id) {
+  let routeUid = +req.params.uid;
+  let userUid = +req.user.id;
+  if (!req.user.isAdmin && routeUid !== userUid) {
     unAuthError();
   }
   next();

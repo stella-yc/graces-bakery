@@ -3454,6 +3454,10 @@ passport-strategy@1.x.x:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/passport-strategy/-/passport-strategy-1.0.0.tgz#b5539aa8fc225a3d1ad179476ddf236b440f52e4"
 
+passport-stub@^1.1.1:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/passport-stub/-/passport-stub-1.1.1.tgz#7c82769432fea344f46379621be6c6f6760fb63c"
+
 passport@^0.3.2:
   version "0.3.2"
   resolved "https://registry.yarnpkg.com/passport/-/passport-0.3.2.tgz#9dd009f915e8fe095b0124a01b8f82da07510102"

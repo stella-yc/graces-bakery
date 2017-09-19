@@ -8,6 +8,7 @@ module.exports = router;
 router.get('/whoami', (req, res) => res.json(req.user));
 
 router.post('/login', (req, res, next) => {
+  console.log('req.body,', req.body);
   User.findOne({ where: { email: req.body.email } })
     .then((user) => {
       if (!user) {
