@@ -86,7 +86,17 @@ const testingLogin = (uModel) => {
     firstName: 'God',
     lastName: 'Almighty',
     email: 'god@heaven.com',
-    password: '123'
+    password: '123',
+    isAdmin: true
+  })
+  .then(() => {
+    return uModel.create({
+      firstName: 'Squidward',
+      lastName: 'Tentacles',
+      email: 'squid@bikinibottom.com',
+      password: '123',
+      isAdmin: false
+    });
   });
 };
 
