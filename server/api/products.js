@@ -31,7 +31,7 @@ router
   .post('/', adminOnly, (req, res, next) => {
     let { name, description, price, image } = req.body;
     let categoryIds = req.body.categoryIds;
-    Product.create({
+    return Product.create({
       name,
       description,
       price,
@@ -51,7 +51,7 @@ router
   )
 
   .put('/:pid', adminOnly, (req, res, next) => {
-    req.product.update(req.body)
+    return req.product.update(req.body)
     .then(updatedProduct => res.status(200).json(updatedProduct))
     .catch(next);
   })

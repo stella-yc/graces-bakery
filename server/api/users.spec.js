@@ -57,19 +57,19 @@ describe('User routes', () => {
   });
 
   describe('/api/users/', () => {
-    it('GET /api/users - 401 if no user is not logged in', () => {
+    xit('GET /api/users - 401 if no user is not logged in', () => {
       return request(app)
         .get('/api/users')
         .expect(401);
     });
 
-    it('GET /api/users - 403 if admin is not logged in', () => {
+    xit('GET /api/users - 403 if admin is not logged in', () => {
       return userAgent
         .get('/api/users')
         .expect(403);
     });
 
-    it('GET /api/users - admin sees users', () => {
+    xit('GET /api/users - admin sees users', () => {
       return adminAgent
         .get('/api/users')
         .expect(200)
@@ -81,7 +81,7 @@ describe('User routes', () => {
   }) // end describe('/api/users')
 
   describe('/api/users/:uid', () => {
-    it('GET /api/users/:uid - sends requested user if admin', () => {
+    xit('GET /api/users/:uid - sends requested user if admin', () => {
       let uid = cody.id;
       return adminAgent
         .get(`/api/users/${uid}`)
@@ -91,7 +91,7 @@ describe('User routes', () => {
           expect(res.body.email).to.equal(codysEmail);
         });
     });
-    it('GET /api/users/:uid - sends requested user if self', () => {
+    xit('GET /api/users/:uid - sends requested user if self', () => {
       let uid = suzaku.id;
       return userAgent
         .get(`/api/users/${uid}`)
@@ -101,7 +101,7 @@ describe('User routes', () => {
           expect(res.body.email).to.equal(suzaku.email);
         });
     });
-    it('GET /api/users/:uid - 403 if requested user is NOT self', () => {
+    xit('GET /api/users/:uid - 403 if requested user is NOT self', () => {
       let uid = cody.id;
       return userAgent
         .get(`/api/users/${uid}`)
