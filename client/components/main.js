@@ -1,68 +1,59 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import {connect} from 'react-redux'
-import {withRouter, Link} from 'react-router-dom'
-import {logout} from '../store'
+import React, { Component } from 'react';
+import { Route, Switch, withRouter } from 'react-router-dom';
+import { Login, Signup } from './auth-form';
+import Nav from './nav';
+import UserHome from './user-home';
+import PrivateRoute from './private-route';
+import { me } from '../store';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
-/**
- * COMPONENT
- *  The Main component is our 'picture frame' - it displays the navbar and anything
- *  else common to our entire app. The 'picture' inside the frame is the space
- *  rendered out by the component's `children`.
- */
-const Main = (props) => {
-  const {children, handleClick, isLoggedIn} = props
+/*** COMPONENT ***/
+class Main extends Component {
+  componentDidMount () {
+    this.props.loadInitialData();
+  }
 
-  return (
-    <div>
-      <h1>BOILERMAKER</h1>
-      <nav>
-        {
-          isLoggedIn
-            ? <div>
-              {/* The navbar will show these links after you log in */}
-              <Link to='/home'>Home</Link>
-              <a href='#' onClick={handleClick}>Logout</a>
-            </div>
-            : <div>
-              {/* The navbar will show these links before you log in */}
-              <Link to='/login'>Login</Link>
-              <Link to='/signup'>Sign Up</Link>
-            </div>
-        }
-      </nav>
-      <hr />
-      {children}
-    </div>
-  )
-}
-
-/**
- * CONTAINER
- */
-const mapState = (state) => {
-  return {
-    isLoggedIn: !!state.user.id
+  render () {
+    const { isLoggedIn } = this.props;
+    return (
+      <div>
+        <Nav />
+        <Switch>
+          <Route path="/login" component={Login} />
+          <Route path="/signup" component={Signup} />
+          <PrivateRoute isLoggedIn path="/home" component={UserHome} />
+          {/* Displays our Login component as a fallback */}
+          <Route component={Login} />
+        </Switch>
+      </div>
+    );
   }
 }
+
+/*** CONTAINER ***/
+const mapState = (state) => {
+  return {
+    // state.user.id -> undefined
+    // !state.user.id -> true
+    // !!state.user.id -> false
+    isLoggedIn: !!state.user.id
+  };
+};
 
 const mapDispatch = (dispatch) => {
   return {
-    handleClick () {
-      dispatch(logout())
+    loadInitialData () {
+      dispatch(me());
     }
-  }
-}
+  };
+};
 
-// The `withRouter` wrapper makes sure that updates are not blocked
-// when the url changes
-export default withRouter(connect(mapState, mapDispatch)(Main))
+export default withRouter(connect(mapState, mapDispatch)(Main));
 
-/**
- * PROP TYPES
- */
+/*** PROP TYPES ***/
 Main.propTypes = {
-  children: PropTypes.object,
-  handleClick: PropTypes.func.isRequired,
+  loadInitialData: PropTypes.func.isRequired,
   isLoggedIn: PropTypes.bool.isRequired
-}
+};
+
