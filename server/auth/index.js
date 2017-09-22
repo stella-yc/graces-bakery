@@ -1,6 +1,4 @@
 const router = require('express').Router();
-const passport = require('passport');
-const LocalStrategy = require('passport-local').Strategy;
 const User = require('../db/models/user');
 
 module.exports = router;
@@ -9,14 +7,14 @@ router.get('/whoami', (req, res) => res.json(req.user));
 
 router.post('/login', (req, res, next) => {
   console.log('req.body,', req.body);
-  User.findOne({ where: { email: req.body.email } })
+  return User.findOne({ where: { email: req.body.email } })
     .then((user) => {
       if (!user) {
-        res.status(401).send('User not found');
+        res.status(400).send('User not found');
       } else if (!user.correctPassword(req.body.password)) {
-        res.status(401).send('Incorrect password');
+        res.status(400).send('Incorrect password');
       } else {
-        req.login(user, err => (
+        return req.login(user, err => (
           err ? next(err)
           : res.json({
             id: user.id,
@@ -31,7 +29,7 @@ router.post('/login', (req, res, next) => {
 });
 
 router.post('/signup', (req, res, next) => {
-  User.create(req.body)
+  return User.create(req.body)
     .then((user) => {
       req.login(user, err => (
         err ? next(err)
@@ -46,7 +44,9 @@ router.post('/signup', (req, res, next) => {
     .catch((err) => {
       if (err.name === 'SequelizeUniqueConstraintError') {
         res.status(401).send('User already exists');
-      } else next(err);
+      } else {
+        next(err);
+      }
     });
 });
 
@@ -55,8 +55,8 @@ router.post('/logout', (req, res) => {
   res.redirect('/');
 });
 
-router.get('/me', (req, res) => {
-  res.json(req.user);
-});
+router.get('/me', (req, res) =>
+  res.json(req.user)
+);
 
 router.use('/google', require('./google'));
