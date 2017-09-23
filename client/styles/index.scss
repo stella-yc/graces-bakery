@@ -1,0 +1,57 @@
+$grey: #96919B;
+$blue: #6084D8;
+$green: #68BFA3;
+$purple: #7768BF;
+$red: #BF6884;
+
+body {
+  font-family: 'Raleway', sans-serif;
+
+  a {
+    text-decoration: none;
+  }
+
+  label {
+    display: block;
+  }
+
+  nav a {
+    display: inline-block;
+    margin: 1em;
+  }
+
+  form div {
+    margin: 1em;
+    display: inline-block;
+  }
+  box-sizing: border-box;
+}
+
+/***** Header and Nav *****/
+
+.header {
+  text-align: center;
+  position: sticky;
+  top: 10px; /* When the element reaches top: 10px, it becomes fixed. */
+  z-index: 100;
+  a {
+    color: $purple;
+  }
+}
+
+.logo {
+  font-family: 'Abril Fatface', cursive;
+  color: $grey;
+  display: inline-block;
+}
+
+.account-info {
+  display: inline-block;
+  .signup {
+    margin-left: 0.1em;
+  }
+  .login {
+    margin-right: 0.1em;
+  }
+}
+

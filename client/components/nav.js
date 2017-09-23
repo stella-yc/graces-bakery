@@ -1,27 +1,32 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { withRouter, Link } from 'react-router-dom';
+import { withRouter, NavLink, Link } from 'react-router-dom';
 import { logout } from '../store';
 
 /*** COMPONENT ***/
 const Nav = (props) => {
   const {handleClick, isLoggedIn} = props;
   return (
-    <div>
-      <h1>Grace's Bakery</h1>
+    <div className="header">
+    <Link to="/home"><h1 className="logo">Grace's Bakery</h1></Link>
       <nav>
+        <NavLink to="/home">New</NavLink>
+        <NavLink to="/home">Bread</NavLink>
+        <NavLink to="/home">Pastry</NavLink>
+        <NavLink to="/home">Cakes</NavLink>
         {
           isLoggedIn
-            ? <div>
-              {/* The navbar will show these links after you log in */}
-              <Link to="/home">Home</Link>
+            ? <div className="account-info">
+              {/* The navbar will show these NavLinks after you log in */}
+              <NavLink to="/home">My Account</NavLink>
               <a href="#" onClick={handleClick}>Logout</a>
             </div>
-            : <div>
-              {/* The navbar will show these links before you log in */}
-              <Link to="/login">Login</Link>
-              <Link to="/signup">Sign Up</Link>
+            : <div className="account-info">
+              {/* The navbar will show these NavLinks before you log in */}
+              <NavLink className="login"to="/login">Login</NavLink>
+              <span className="divider">/</span>
+              <NavLink className="signup"to="/signup">Sign Up</NavLink>
             </div>
         }
       </nav>
