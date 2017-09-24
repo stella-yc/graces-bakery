@@ -3,6 +3,7 @@ import { Route, Switch, withRouter } from 'react-router-dom';
 import { Login, Signup } from './auth-form';
 import Nav from './nav';
 import UserHome from './user-home';
+import Home from './home';
 import PrivateRoute from './private-route';
 import { me } from '../store';
 import { connect } from 'react-redux';
@@ -22,9 +23,9 @@ class Main extends Component {
         <Switch>
           <Route path="/login" component={Login} />
           <Route path="/signup" component={Signup} />
-          <PrivateRoute isLoggedIn path="/home" component={UserHome} />
+          <PrivateRoute isLoggedIn path="/dashboard" component={UserHome} />
           {/* Displays our Login component as a fallback */}
-          <Route component={Login} />
+          <Route component={Home} />
         </Switch>
       </div>
     );
