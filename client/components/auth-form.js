@@ -6,11 +6,11 @@ import { withRouter, Redirect } from 'react-router-dom';
 import { Button } from 'react-bootstrap';
 
 /*** COMPONENT***/
-class AuthForm extends Component {
+export class AuthForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      redirectToHome: false
+      redirectToHome: this.props.isLoggedIn || false
     };
     this.submitAuth = this.submitAuth.bind(this);
   }
@@ -32,7 +32,7 @@ class AuthForm extends Component {
   render () {
     const {name, displayName, error, isLoggedIn} = this.props;
     if (this.state.redirectToHome) {
-      return <Redirect to="/home" />;
+      return <Redirect to="/dashboard" />;
     }
     return (
         <div className="auth-form">
