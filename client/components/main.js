@@ -17,7 +17,7 @@ class Main extends Component {
   render () {
     const { isLoggedIn } = this.props;
     return (
-      <div>
+      <div className="main">
         <Nav />
         <Switch>
           <Route path="/login" component={Login} />

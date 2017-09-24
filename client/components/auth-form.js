@@ -3,6 +3,7 @@ import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 import {auth} from '../store';
 import { withRouter, Redirect } from 'react-router-dom';
+import { Button } from 'react-bootstrap';
 
 /*** COMPONENT***/
 class AuthForm extends Component {
@@ -34,24 +35,25 @@ class AuthForm extends Component {
       return <Redirect to="/home" />;
     }
     return (
-      <div>
-        <form onSubmit={this.submitAuth} name={name}>
-          <div>
-            <label htmlFor="email"><small>Email</small></label>
-            <input name="email" type="text" />
-          </div>
-          <div>
-            <label htmlFor="password"><small>Password</small></label>
-            <input name="password" type="password" />
-          </div>
-          <div>
-            <button type="submit">{displayName}</button>
-          </div>
-          {error && error.response && <div> {error.response.data} </div>}
-        </form>
-        <a href="/auth/google">{displayName} with Google</a>
-      </div>
-    )
+        <div className="auth-form">
+          <h3>{displayName}</h3>
+          <form onSubmit={this.submitAuth} name={name}>
+            <div className="form-element">
+              <label htmlFor="email"><small>Email</small></label>
+              <input name="email" type="text" />
+            </div>
+            <div className="form-element">
+              <label htmlFor="password"><small>Password</small></label>
+              <input name="password" type="password" />
+            </div>
+            <div className="form-element">
+              <button className="btn-primary" type="submit">{displayName}</button>
+            </div>
+            {error && error.response && <div> {error.response.data} </div>}
+          </form>
+          <a href="/auth/google">{displayName} with Google</a>
+        </div>
+    );
   }
 }
 

@@ -19,14 +19,29 @@ const Nav = (props) => {
           isLoggedIn
             ? <div className="account-info">
               {/* The navbar will show these NavLinks after you log in */}
-              <NavLink to="/home">My Account</NavLink>
-              <a href="#" onClick={handleClick}>Logout</a>
+              <NavLink
+                to="/home">
+                My Account
+              </NavLink>
+              <a
+                href="#"
+                onClick={handleClick}>
+                Logout
+              </a>
             </div>
             : <div className="account-info">
               {/* The navbar will show these NavLinks before you log in */}
-              <NavLink className="login"to="/login">Login</NavLink>
+              <NavLink
+                className="account1"
+                to="/login">
+                Login
+              </NavLink>
               <span className="divider">/</span>
-              <NavLink className="signup"to="/signup">Sign Up</NavLink>
+              <NavLink
+                className="account2"
+                to="/signup">
+                Sign Up
+              </NavLink>
             </div>
         }
       </nav>
