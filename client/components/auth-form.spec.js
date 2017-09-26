@@ -1,31 +1,15 @@
 /* global describe beforeEach it */
 
-/* setup.js */
-const { JSDOM } = require('jsdom');
-
-const jsdom = new JSDOM('<!doctype html><html><body></body></html>');
-const { window } = jsdom;
-
-function copyProps(src, target) {
-  const props = Object.getOwnPropertyNames(src)
-    .filter(prop => typeof target[prop] === 'undefined')
-    .map(prop => Object.getOwnPropertyDescriptor(src, prop));
-  Object.defineProperties(target, props);
-}
-
-global.window = window;
-global.document = window.document;
-global.navigator = {
-  userAgent: 'node.js',
-};
-copyProps(window, global);
-
+import setup from './setup.spec.js';
 import { expect } from 'chai';
 import React from 'react';
 import { shallow, mount, render } from 'enzyme';
 import { AuthForm } from './auth-form';
-import store from '../store';
-import { Redirect } from 'react-router-dom';
+import store, { auth } from '../store';
+import sinon from 'sinon';
+
+// import { Redirect } from 'react-router-dom';
+
 describe('<Login /> and <Signup />', () => {
 
   it('AuthForm component displays Login or Signup', () => {
@@ -33,7 +17,9 @@ describe('<Login /> and <Signup />', () => {
       name={'login'}
       displayName={'Login'}
       error={null}
-      isLoggedIn={false} />,
+      isLoggedIn={false}
+      auth={auth}
+      />,
       { context: { store }}
     );
     expect(wrapper.find('h3')).to.have.length(1);
@@ -46,7 +32,9 @@ describe('<Login /> and <Signup />', () => {
       name={'signup'}
       displayName={'Sign Up'}
       error={null}
-      isLoggedIn={false} />,
+      isLoggedIn={false}
+      auth={auth}
+      />,
       { context: { store }}
     );
     expect(wrapper.find('h3')).to.have.length(1);
@@ -54,14 +42,57 @@ describe('<Login /> and <Signup />', () => {
     expect(wrapper.text()).to.not.contain('Login');
   });
 
-  xit('dispatches auth thunk action creator on submit', () => {});
+  it('handleChange sets controlled component state', () => {
+    let wrapper = shallow(<AuthForm
+      name={'signup'}
+      displayName={'Sign Up'}
+      error={null}
+      isLoggedIn={false}
+      auth={auth}
+      />,
+      { context: { store }}
+    );
+    let email = 'azula@rats.com';
+    let password = '123';
+    wrapper
+      .find('#input-email')
+      .simulate('change', {target: { value: email }});
+    wrapper
+      .find('#input-password')
+      .simulate('change', {target: { value: password }});
+    expect(wrapper.state().email).to.be.equal(email);
+    expect(wrapper.state().password).to.be.equal(password);
+  });
+
+  it('Submitting form invokes this.props.auth', () => {
+    let spy = sinon.spy();
+    let wrapper = shallow(<AuthForm
+      name={'signup'}
+      displayName={'Sign Up'}
+      error={null}
+      isLoggedIn={false}
+      auth={spy}
+      />,
+      { context: { store }}
+    );
+    expect(spy.notCalled).to.be.equal(true);
+    let formName = 'signup';
+    let email = 'azula@rats.com';
+    let password = '123';
+    wrapper.setState({ formName, email, password });
+    wrapper.find('form').simulate('submit', { preventDefault () {} });
+    expect(spy.called).to.be.equal(true);
+    expect(spy.alwaysCalledWithExactly(email, password, formName)).to.be.equal(true);
+  });
 
   it('when new props isLoggedIn is true, it updates state', () => {
     let wrapper = shallow(<AuthForm
       name={'signup'}
       displayName={'Sign Up'}
       error={null}
-      isLoggedIn={true} />,
+      isLoggedIn={true}
+      auth={auth}
+      />,
       { context: { store }}
     );
     expect(wrapper.state('redirectToHome')).to.equal(true);

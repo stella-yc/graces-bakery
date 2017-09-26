@@ -3,23 +3,23 @@ import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 import {auth} from '../store';
 import { withRouter, Redirect } from 'react-router-dom';
-import { Button } from 'react-bootstrap';
 
 /*** COMPONENT***/
 export class AuthForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      redirectToHome: this.props.isLoggedIn || false
+      redirectToHome: this.props.isLoggedIn || false,
+      formName: this.props.name,
+      email: '',
+      password: ''
     };
     this.submitAuth = this.submitAuth.bind(this);
   }
 
   submitAuth(evt) {
     evt.preventDefault();
-    const formName = evt.target.name;
-    const email = evt.target.email.value;
-    const password = evt.target.password.value;
+    const { formName, email, password } = this.state;
     this.props.auth(email, password, formName);
   }
 
@@ -27,6 +27,15 @@ export class AuthForm extends Component {
     if (nextProps.isLoggedIn) {
       this.setState({redirectToHome: true});
     }
+  }
+
+  handleChange(field) {
+    const updateState = (evt) => {
+      const change = {};
+      change[field] = evt.target.value;
+      this.setState(change);
+    };
+    return updateState;
   }
 
   render () {
@@ -40,14 +49,28 @@ export class AuthForm extends Component {
           <form onSubmit={this.submitAuth} name={name}>
             <div className="form-element">
               <label htmlFor="email"><small>Email</small></label>
-              <input name="email" type="text" />
+              <input
+                id="input-email"
+                name="email"
+                type="text"
+                onChange={this.handleChange('email')}
+              />
             </div>
             <div className="form-element">
               <label htmlFor="password"><small>Password</small></label>
-              <input name="password" type="password" />
+              <input
+                id="input-password"
+                name="password"
+                type="password"
+                onChange={this.handleChange('password')}
+              />
             </div>
             <div className="form-element">
-              <button className="btn-primary" type="submit">{displayName}</button>
+              <button
+                id="submit-btn"
+                className="btn-primary submit-btn"
+                type="submit">{displayName}
+              </button>
             </div>
             {error && error.response && <div> {error.response.data} </div>}
           </form>
