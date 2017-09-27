@@ -8,7 +8,7 @@ import { AuthForm } from './auth-form';
 import store, { auth } from '../store';
 import sinon from 'sinon';
 import { UserHome } from './user-home';
-import { BrowserRouter as Router } from 'react-router-dom';
+import { MemoryRouter as Router, Redirect } from 'react-router-dom';
 
 describe('<Login /> and <Signup />', () => {
 
@@ -96,15 +96,9 @@ describe('<Login /> and <Signup />', () => {
       { context: { store }}
     );
     expect(wrapper.state('redirectToHome')).to.equal(true);
-    // expect(wrapper.contains('Redirect')).to.equal(true);
   });
-  /***
-   * Enzyme does NOT like react-router-v4 convention of using redirects
-   * It will throw an error when I use mount(<AuthForm />) or render() since it renders Redirect outside of a Route component
-   * Must wrap in Router
-   * Security Error?
-    ***/
-  xit('when redirectToHome is true, it renders Dashboard', () => {
+
+  it('when redirectToHome is true, it renders Redirect', () => {
     let wrapper = mount(
       <Router>
         <AuthForm
@@ -115,8 +109,7 @@ describe('<Login /> and <Signup />', () => {
       </Router>,
         { context: { store }}
     );
-    expect(wrapper.find(UserHome)).to.have.length(1);
-    // expect(wrapper.contains('Redirect')).to.equal(true);
+    expect(wrapper.find(Redirect)).to.have.length(1);
   });
 
 

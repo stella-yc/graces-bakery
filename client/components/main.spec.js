@@ -6,7 +6,7 @@ import { shallow } from 'enzyme';
 import { Main } from './main';
 import store from '../store';
 import sinon from 'sinon';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { MemoryRouter as Router, Route } from 'react-router-dom';
 
 describe('<Main />', () => {
 
