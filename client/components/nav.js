@@ -5,7 +5,7 @@ import { withRouter, NavLink, Link } from 'react-router-dom';
 import { logout } from '../store';
 
 /*** COMPONENT ***/
-const Nav = (props) => {
+export const Nav = (props) => {
   const {handleClick, isLoggedIn} = props;
   return (
     <div className="header">
@@ -24,6 +24,7 @@ const Nav = (props) => {
                 My Account
               </NavLink>
               <a
+                id="logout-link"
                 href="#"
                 onClick={handleClick}>
                 Logout

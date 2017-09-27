@@ -7,8 +7,8 @@ import { shallow, mount, render } from 'enzyme';
 import { AuthForm } from './auth-form';
 import store, { auth } from '../store';
 import sinon from 'sinon';
-
-// import { Redirect } from 'react-router-dom';
+import { UserHome } from './user-home';
+import { BrowserRouter as Router } from 'react-router-dom';
 
 describe('<Login /> and <Signup />', () => {
 
@@ -101,18 +101,21 @@ describe('<Login /> and <Signup />', () => {
   /***
    * Enzyme does NOT like react-router-v4 convention of using redirects
    * It will throw an error when I use mount(<AuthForm />) or render() since it renders Redirect outside of a Route component
-   * Must use mount to test component lifecycle methods
-   * shallow and checking for Redirect component does not work
+   * Must wrap in Router
+   * Security Error?
     ***/
   xit('when redirectToHome is true, it renders Dashboard', () => {
-    let wrapper = render(<AuthForm
-      name={'signup'}
-      displayName={'Sign Up'}
-      error={null}
-      isLoggedIn={true} />,
-      { context: { store }}
+    let wrapper = mount(
+      <Router>
+        <AuthForm
+          name={'signup'}
+          displayName={'Sign Up'}
+          error={null}
+          isLoggedIn={true} />
+      </Router>,
+        { context: { store }}
     );
-    expect(wrapper.find('h3').text()).to.contain('Welcome,');
+    expect(wrapper.find(UserHome)).to.have.length(1);
     // expect(wrapper.contains('Redirect')).to.equal(true);
   });
 

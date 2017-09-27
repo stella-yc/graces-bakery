@@ -10,7 +10,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 /*** COMPONENT ***/
-class Main extends Component {
+export class Main extends Component {
   componentDidMount () {
     this.props.loadInitialData();
   }
@@ -23,7 +23,7 @@ class Main extends Component {
         <Switch>
           <Route path="/login" component={Login} />
           <Route path="/signup" component={Signup} />
-          <PrivateRoute isLoggedIn path="/dashboard" component={UserHome} />
+          <PrivateRoute isLoggedIn={isLoggedIn} path="/dashboard" component={UserHome} />
           {/* Displays our Login component as a fallback */}
           <Route component={Home} />
         </Switch>

@@ -7,7 +7,7 @@ import Nav from './nav';
 import UserHome from './user-home';
 
 /*** COMPONENT ***/
-class PrivateRoute extends React.Component {
+export class PrivateRoute extends React.Component {
   constructor(props) {
     super(props);
   }
