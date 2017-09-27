@@ -4,8 +4,9 @@ import { Login, Signup } from './auth-form';
 import Nav from './nav';
 import UserHome from './user-home';
 import Home from './home';
+import Products from './products';
 import PrivateRoute from './private-route';
-import { me } from '../store';
+import { me, allProducts } from '../store';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
@@ -21,11 +22,12 @@ export class Main extends Component {
       <div className="main">
         <Nav />
         <Switch>
+          <Route exact path="/" component={Home} />
+          <Route path="/home" component={Home} />
           <Route path="/login" component={Login} />
           <Route path="/signup" component={Signup} />
-          <PrivateRoute isLoggedIn={isLoggedIn} path="/dashboard" component={UserHome} />
-          {/* Displays our Login component as a fallback */}
-          <Route component={Home} />
+          <Route path="/category/bread" component={Products} />
+          <PrivateRoute path="/dashboard" component={UserHome} />
         </Switch>
       </div>
     );
@@ -38,7 +40,7 @@ const mapState = (state) => {
     // state.user.id -> undefined
     // !state.user.id -> true
     // !!state.user.id -> false
-    isLoggedIn: !!state.user.id
+    isLoggedIn: !!state.user.id,
   };
 };
 
@@ -46,6 +48,7 @@ const mapDispatch = (dispatch) => {
   return {
     loadInitialData () {
       dispatch(me());
+      dispatch(allProducts());
     }
   };
 };

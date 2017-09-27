@@ -12,7 +12,7 @@ export const Nav = (props) => {
     <Link to="/home"><h1 className="logo">Grace's Bakery</h1></Link>
       <nav>
         <NavLink to="/home">New</NavLink>
-        <NavLink to="/home">Bread</NavLink>
+        <NavLink to="/category/bread">Bread</NavLink>
         <NavLink to="/home">Pastry</NavLink>
         <NavLink to="/home">Cakes</NavLink>
         {
