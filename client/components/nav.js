@@ -46,7 +46,6 @@ export const Nav = (props) => {
             </div>
         }
       </nav>
-      <hr />
     </div>
   );
 };

@@ -1,7 +1,7 @@
-$grey: #96919B;
+$grey: #D8D8D8;
 $blue: #6084D8;
 $green: #68BFA3;
-$purple: #7768BF;
+$purple: #D3B0FF;
 $red: #BF6884;
 
 body {
@@ -32,10 +32,13 @@ body {
 .header {
   text-align: center;
   position: sticky;
-  top: 10px; /* When the element reaches top: 10px, it becomes fixed. */
-  z-index: 100;
+  width: 100%;
+  top: 0px;
+  z-index: 200;
+  background-color: #1F1F1F;
   a {
     color: $purple;
+    font-size: 1.2em;
   }
   .logo {
     font-family: 'Abril Fatface', cursive;
@@ -85,3 +88,61 @@ body {
   padding: 0.5em 1em;
   display: block;
 }
+
+/***** Homepage *****/
+
+.jumbotron {
+  width: 100%;
+  height: 80vh;
+  background-image: url("/img/intro-slide.jpg");
+  background-size: auto 100vh;
+  background-repeat: no-repeat;
+  background-position: bottom right;
+  padding: 0;
+  margin: 0;
+  .jumbotron-text {
+    position: absolute;
+    top: 45vh;
+    left: 5vw;
+    width: 100%;
+    line-height: 1.3em;
+    span {
+      color: #fff;
+      background-color: rgba(42, 42, 42, 0.6);
+      margin-top: 1em;
+    }
+  }
+
+  .chevron {
+    position: absolute;
+    z-index: 100;
+    top: 85%;
+    left: 50vw;
+    width: 40px;
+    height: auto;
+  }
+}
+
+.about {
+  background-color: $grey;
+  color: black;
+  padding: 2em 2em;
+  font-size: 1.2em;
+  line-height: 1.5em;
+}
+
+.about-img {
+  width: 100%;
+  img {
+    width: 100%;
+    height: auto;
+  }
+}
+
+@media (min-width: 950px) {
+  .jumbotron {
+    background-size: 100% auto;
+  }
+}
+
+
