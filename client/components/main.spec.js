@@ -20,7 +20,7 @@ describe('<Main />', () => {
         <Main />,
       { context: { store }}
     );
-    expect(wrapper.find(Route)).to.have.length(3);
+    expect(wrapper.find(Route)).to.have.length(5);
   });
 
   it('invokes this.props.loadInitialData', () => {
