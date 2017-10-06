@@ -9,11 +9,15 @@ const pCategory = Category.scope('products');
 
 router
   .param('cid', (req, res, next, cid) => {
-    return pCategory.findById(cid)
+    return pCategory.findOne({
+      where: {
+        name: cid
+      }
+    })
     .then(category => {
       if (!category) {
         const err = new Error('Category does not exist');
-        err.status = 403; // not this
+        err.status = 404; // not this
         throw err;
       } else {
         req.category = category;
@@ -30,9 +34,10 @@ router
   })
 
   .post('/', adminOnly, (req, res, next) => {
-    let { name, description } = req.body;
+    let { name, description, displayName } = req.body;
     return Category.create({
       name,
+      displayName,
       description,
     })
     .then(category => res.status(201).json(category))

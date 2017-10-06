@@ -8,6 +8,10 @@ const Category = db.define('category', {
     type: Sequelize.STRING,
     allowNull: false
   },
+  displayName: {
+    type: Sequelize.STRING,
+    allowNull: false
+  },
   description: {
     type: Sequelize.TEXT
   }

@@ -13,8 +13,8 @@ export const Nav = (props) => {
       <nav>
         <NavLink to="/home">New</NavLink>
         <NavLink to="/category/bread">Bread</NavLink>
-        <NavLink to="/home">Pastry</NavLink>
-        <NavLink to="/home">Cakes</NavLink>
+        <NavLink to="/category/pastry">Pastry</NavLink>
+        <NavLink to="/category/cakes">Cakes</NavLink>
         {
           isLoggedIn
             ? <div className="account-info">

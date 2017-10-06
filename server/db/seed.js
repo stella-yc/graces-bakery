@@ -116,7 +116,8 @@ const productData = {
 };
 
 const categoryData = {
-  name: ['Bread', 'Pastry', 'Cakes', 'Cookies'],
+  name: ['bread', 'pastry', 'cakes', 'cookies'],
+  displayName: ['Bread', 'Pastry', 'Cakes', 'Cookies'],
   description: ['Savory and sweet!', 'For every occasion', 'Decadent treats', 'Beloved by all']
 };
 

@@ -27,7 +27,7 @@ describe('Product model', () => {
       });
 
       it('returns the path to the image', () => {
-        expect(curryBun.image).to.be.equal('/public/img/currybun.jpg');
+        expect(curryBun.image).to.be.equal('/img/currybun.jpg');
       });
 
     }); // end describe('correctPassword')

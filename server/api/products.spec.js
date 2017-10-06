@@ -27,6 +27,7 @@ describe('Product routes', () => {
         });
         let p2 = Category.create({
           name: 'Pastry',
+          displayName: 'Pastry',
           description: 'Scrumptious'
         });
         let p3 = User.create({
@@ -69,6 +70,7 @@ describe('Product routes', () => {
         .get('/api/products/')
         .expect(200)
         .then(res => {
+          console.log('****', res.body);
           expect(res.body).to.be.an('array');
           expect(res.body[0].name).to.equal('Croissant');
           expect(res.body[0].categories[0].id).to.equal(1);
@@ -87,7 +89,7 @@ describe('Product routes', () => {
         })
         .expect(201)
         .then(res => {
-          expect(res.body.image).to.equal('/public/img/jade-wulfraat-96023.jpg');
+          expect(res.body.image).to.equal('/img/jade-wulfraat-96023.jpg');
           expect(res.body.name).to.equal('Donut');
         });
     });
@@ -102,7 +104,7 @@ describe('Product routes', () => {
         .then(res => {
           expect(res.body).to.be.an('object');
           expect(res.body.name).to.equal('Croissant');
-          expect(res.body.image).to.equal('/public/img/jade-wulfraat-96023.jpg');
+          expect(res.body.image).to.equal('/img/jade-wulfraat-96023.jpg');
         });
     });
     it('PUT /api/products/:pid - admin can update a product', () => {

@@ -139,6 +139,7 @@ body {
   }
 }
 
+
 @media (min-width: 950px) {
   .jumbotron {
     background-size: 100% auto;
@@ -146,3 +147,23 @@ body {
 }
 
 
+/***** Product *****/
+
+.product-icon {
+  text-align: center;
+  margin-bottom: 3em;
+  .img-container {
+    width: 70vw;
+    height: 70vw;
+    overflow: hidden;
+    margin: 0 auto;
+    img {
+      height: 100%;
+      width: auto;
+    }
+  }
+  h4 {
+    font-family: 'Abril Fatface', cursive;
+  }
+
+}

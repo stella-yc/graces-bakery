@@ -26,7 +26,7 @@ export class Main extends Component {
           <Route path="/home" component={Home} />
           <Route path="/login" component={Login} />
           <Route path="/signup" component={Signup} />
-          <Route path="/category/bread" component={Products} />
+          <Route path="/category/:cid" component={Products} />
           <PrivateRoute path="/dashboard" component={UserHome} />
         </Switch>
       </div>

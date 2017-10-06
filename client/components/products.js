@@ -1,32 +1,64 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { allProducts } from '../store';
+import { categoryProducts } from '../store';
 import { withRouter } from 'react-router-dom';
 
+const ProductIcon = (props) => {
+  let {id, name, description, price, image} = props.prod;
+  return (
+    <div className="product-icon">
+      <div className="img-container"><img src={image} /></div>
+      <h4>{name}</h4>
+      <p>{`$${price}`}</p>
+    </div>
+  );
+};
 /*** COMPONENT ***/
-export const Products = (props) => {
-  const { products } = props;
+export class Products extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      showProducts: false
+    };
+  }
+  componentDidMount () {
+    this.props.categoryProducts(this.props.match.params.cid);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    console.log('match', this.props.match.params.cid);
+    if (nextProps.match.params.cid !== this.props.match.params.cid) {
+      this.props.categoryProducts(nextProps.match.params.cid);
+    }
+    if (nextProps.categories.products) {
+      this.setState({showProducts: true});
+    }
+  }
+  render() {
+    const { categories } = this.props;
+    console.log('***', categories);
     return (
       <div>
-        <h3>Products are herrree</h3>
+        <h3>{this.props.match.params.cid}</h3>
         {
-          products && products.map(prod => {
-            return <p key={prod.id}>{prod.name}</p>;
+          categories.products && categories.products.map(prod => {
+            return <ProductIcon key={prod.id} prod={prod} />;
           })
         }
       </div>
     );
+  }
 };
 
 /*** CONTAINER ***/
 const mapState = (state) => {
   return {
-    products: state.products.products
+    categories: state.categories
   };
 };
 
-export default withRouter(connect(mapState, {allProducts})(Products));
+export default withRouter(connect(mapState, {categoryProducts})(Products));
 
 /*** PROP TYPES ***/
 Products.propTypes = {

@@ -25,7 +25,8 @@ describe('Category routes', () => {
           image: 'jade-wulfraat-96023.jpg'
         });
         let p2 = Category.create({
-          name: 'Pastry',
+          name: 'pastry',
+          displayName: 'Pastry',
           description: 'Scrumptious'
         });
         let p3 = User.create({
@@ -68,7 +69,7 @@ describe('Category routes', () => {
         .expect(200)
         .then(res => {
           expect(res.body).to.be.an('array');
-          expect(res.body[0].name).to.equal('Pastry');
+          expect(res.body[0].name).to.equal('pastry');
         });
     });
     it('POST /api/categories - admin can add new category', () => {
@@ -76,6 +77,7 @@ describe('Category routes', () => {
         .post('/api/categories/')
         .send({
           name: 'Bread',
+          displayName: 'Bread',
           description: 'Baked fresh daily'
         })
         .expect(201)
@@ -89,18 +91,18 @@ describe('Category routes', () => {
   describe('/api/categories/:cid', () => {
     it('GET /api/categories/:cid - get a single category', () => {
       return request(app)
-        .get(`/api/categories/${1}`)
+        .get(`/api/categories/pastry`)
         .expect(200)
         .then(res => {
           expect(res.body).to.be.an('object');
-          expect(res.body.name).to.equal('Pastry');
+          expect(res.body.name).to.equal('pastry');
           expect(res.body.description).to.equal('Scrumptious');
           expect(res.body.products[0].name).to.equal('Croissant');
         });
     });
     it('PUT /api/categories/:cid - admin can update a product', () => {
       return adminAgent
-        .put(`/api/categories/${1}`)
+        .put(`/api/categories/pastry`)
         .send({name: 'Yummy goods'})
         .expect(200)
         .then(res => {
@@ -113,7 +115,7 @@ describe('Category routes', () => {
     });
     it('DELETE /api/categories/:cid - admin can delete product', () => {
       return adminAgent
-        .delete(`/api/categories/${1}`)
+        .delete(`/api/categories/pastry`)
         .expect(204);
     });
   }); // end describe('/api/products/pid')

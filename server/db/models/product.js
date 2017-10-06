@@ -28,7 +28,7 @@ const Product = db.define('product', {
     get() {
       const imgName = this.getDataValue('image');
       // 'this' allows you to access attributes of the instance
-      return `/public/img/${imgName}`;
+      return `/img/${imgName}`;
     },
   }
 },
