@@ -17,7 +17,7 @@ body {
 
   nav a {
     display: inline-block;
-    margin: 1em;
+    margin: 0.8em;
   }
 
   form div {
@@ -31,14 +31,13 @@ body {
 
 .header {
   text-align: center;
-  position: sticky;
   width: 100%;
   top: 0px;
   z-index: 200;
   background-color: #1F1F1F;
   a {
     color: $purple;
-    font-size: 1.2em;
+    font-size: 1.1em;
   }
   .logo {
     font-family: 'Abril Fatface', cursive;
@@ -148,7 +147,47 @@ body {
 
 
 /***** Product *****/
-
+.cat-description {
+  text-align: center;
+  padding: 2em 0;
+  margin-bottom: 1em;
+  h3 {
+    margin: 0;
+  }
+}
+.prod-description {
+  text-align: center;
+  padding: 2em 1em;
+  margin-bottom: 1em;
+  .img-container {
+    width: 70vw;
+    height: 70vw;
+    overflow: hidden;
+    margin: 0 auto;
+    img {
+      height: 100%;
+      width: auto;
+    }
+  }
+  .title {
+    font-family: 'Abril Fatface', cursive;
+    margin-bottom: 1em;
+  }
+  .price {
+    padding: 0;
+    margin: 1em;
+  }
+  .cart-btn {
+    background-color: $green;
+    border: none;
+    border-radius: 6px;
+    padding: 0.5em 1em;
+    color: white;
+  }
+  .description {
+    margin-bottom: 2em;
+  }
+}
 .product-icon {
   text-align: center;
   margin-bottom: 3em;
@@ -162,7 +201,7 @@ body {
       width: auto;
     }
   }
-  h4 {
+  h3 {
     font-family: 'Abril Fatface', cursive;
   }
 

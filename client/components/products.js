@@ -2,18 +2,9 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { categoryProducts } from '../store';
-import { withRouter } from 'react-router-dom';
+import { withRouter, Link } from 'react-router-dom';
+import ProductIcon from './product-icon';
 
-const ProductIcon = (props) => {
-  let {id, name, description, price, image} = props.prod;
-  return (
-    <div className="product-icon">
-      <div className="img-container"><img src={image} /></div>
-      <h4>{name}</h4>
-      <p>{`$${price}`}</p>
-    </div>
-  );
-};
 /*** COMPONENT ***/
 export class Products extends Component {
   constructor(props) {
@@ -37,12 +28,19 @@ export class Products extends Component {
   }
   render() {
     const { categories } = this.props;
-    console.log('***', categories);
+
+    if (!categories.products) {
+      return null;
+    }
     return (
       <div>
-        <h3>{this.props.match.params.cid}</h3>
+        <div className="cat-description">
+          <h3>{categories.displayName}</h3>
+          <p>{categories.description}</p>
+        </div>
+
         {
-          categories.products && categories.products.map(prod => {
+          categories.products.map(prod => {
             return <ProductIcon key={prod.id} prod={prod} />;
           })
         }

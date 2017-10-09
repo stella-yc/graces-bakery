@@ -11,7 +11,6 @@ export const Nav = (props) => {
     <div className="header">
     <Link to="/home"><h1 className="logo">Grace's Bakery</h1></Link>
       <nav>
-        <NavLink to="/home">New</NavLink>
         <NavLink to="/category/bread">Bread</NavLink>
         <NavLink to="/category/pastry">Pastry</NavLink>
         <NavLink to="/category/cakes">Cakes</NavLink>
@@ -22,6 +21,10 @@ export const Nav = (props) => {
               <NavLink
                 to="/home">
                 My Account
+              </NavLink>
+              <NavLink
+                to="/home">
+                Cart
               </NavLink>
               <a
                 id="logout-link"
