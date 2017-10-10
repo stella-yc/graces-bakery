@@ -35,7 +35,7 @@ export class Products extends Component {
     return (
       <div>
         <div className="cat-description">
-          <h3>{categories.displayName}</h3>
+          <h1>{categories.displayName}</h1>
           <p>{categories.description}</p>
         </div>
         <div className="prod-container">

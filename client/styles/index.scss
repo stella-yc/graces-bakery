@@ -39,11 +39,13 @@ body {
   a {
     color: $purple;
     font-size: 1.1em;
+    margin: 0 0.5em 0.5em 0.5em;
   }
   .logo {
     font-family: 'Abril Fatface', cursive;
     color: $grey;
     display: inline-block;
+    margin: 0.5em 0 0.5em 0;
   }
   .account-info {
     display: inline-block;
@@ -196,22 +198,23 @@ body {
 
 
 
-/***** Product *****/
+/***** Category *****/
 .cat-description {
   text-align: center;
   padding: 2em 0;
   margin-bottom: 1em;
-  h3 {
+  h1 {
     margin: 0;
   }
 }
+
+/***** Product *****/
 .prod-description {
-  text-align: center;
   padding: 2em 1em;
   margin-bottom: 1em;
   .img-container {
-    width: 70vw;
-    height: 70vw;
+    width: 80vw;
+    height: 80vw;
     overflow: hidden;
     margin: 0 auto;
     img {
@@ -219,13 +222,17 @@ body {
       width: auto;
     }
   }
+  .prod-details {
+    margin: 0 auto;
+    width: 80%;
+  }
   .title {
     font-family: 'Abril Fatface', cursive;
     margin-bottom: 1em;
   }
   .price {
     padding: 0;
-    margin: 1em;
+    margin: 1em 0;
   }
   .cart-btn {
     background-color: $green;
@@ -233,11 +240,40 @@ body {
     border-radius: 6px;
     padding: 0.5em 1em;
     color: white;
+    margin: 1em 0;
   }
   .description {
     margin-bottom: 2em;
   }
+  .form-element {
+    margin: 0;
+  }
+
 }
+
+@media (min-width: 550px) {
+  .prod-description {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    .img-container {
+      width: 50vw;
+      height: 50vw;
+    }
+    .prod-details {
+      width: 30vw;
+    }
+  }
+}
+@media (min-width: 1000px) {
+  .prod-description {
+    .img-container {
+      width: 38vw;
+      height: 38vw;
+    }
+  }
+}
+
 
 .prod-container {
   display: flex;
@@ -264,10 +300,10 @@ body {
 
 @media (min-width: 950px) {
   .product-icon {
+    padding: 0 2em;
     .img-container {
       width: 25vw;
       height: 25vw;
-      padding: 0 2em;
     }
   }
 }

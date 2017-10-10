@@ -45,15 +45,17 @@ export class Product extends Component {
     }
     return (
       <div className="prod-description">
-        <h2 className="title">{product.name}</h2>
         <div className="img-container">
           <img src={product.image} />
         </div>
-        <h4 className="price">{`$${product.price}`}</h4>
-        <p className="description">{product.description}</p>
-        <div>
-          <QuantityMenu quantity={30} />
-          <button className="cart-btn" onClick={this.cartClick}>Add to Cart</button>
+        <div className="prod-details">
+          <h2 className="title">{product.name}</h2>
+          <h4 className="price">{`$${product.price}`}</h4>
+          <p className="description">{product.description}</p>
+          <div>
+            <QuantityMenu quantity={30} />
+            <button className="cart-btn" onClick={this.cartClick}>Add to Cart</button>
+          </div>
         </div>
         <Modal
           open={this.state.showModal}
