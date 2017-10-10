@@ -15,6 +15,7 @@ export class Products extends Component {
   }
   componentDidMount () {
     this.props.categoryProducts(this.props.match.params.cid);
+    window.scrollTo(0, 0);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -54,7 +55,7 @@ export class Products extends Component {
 /*** CONTAINER ***/
 const mapState = (state) => {
   return {
-    categories: state.categories
+    categories: state.productsByCat
   };
 };
 

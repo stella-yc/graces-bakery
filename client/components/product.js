@@ -19,6 +19,7 @@ export class Product extends Component {
   }
   componentDidMount() {
     this.props.singleProduct(this.props.match.params.pid);
+    window.scrollTo(0, 0);
   }
 
   componentWillReceiveProps(nextProps) {

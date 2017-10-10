@@ -6,6 +6,7 @@ import UserHome from './user-home';
 import Home from './home';
 import Products from './products';
 import Product from './product';
+import Categories from './categories';
 import PrivateRoute from './private-route';
 import { me, allProducts } from '../store';
 import { connect } from 'react-redux';
@@ -27,6 +28,7 @@ export class Main extends Component {
           <Route path="/home" component={Home} />
           <Route path="/login" component={Login} />
           <Route path="/signup" component={Signup} />
+          <Route path="/category/all" component={Categories} />
           <Route path="/category/:cid" component={Products} />
           <Route path="/products/:pid" component={Product} />
           <PrivateRoute path="/dashboard" component={UserHome} />

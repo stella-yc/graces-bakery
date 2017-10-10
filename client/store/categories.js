@@ -1,28 +1,27 @@
 import axios from 'axios';
 
 /*** ACTION TYPES ***/
-const PRODUCTS_BY_CAT = 'PRODUCTS_BY_CAT';
+const ALL_CATEGORIES = 'ALL_CATEGORIES';
 
 /*** INITIAL STATE ***/
-const defaultState = {};
+const defaultState = [];
 
 /*** ACTION CREATORS ***/
-const getProductsByCat = category => ({type: PRODUCTS_BY_CAT, category});
+const getAllCategories = categories => ({type: ALL_CATEGORIES, categories});
 
 /*** THUNK CREATORS ***/
-export const categoryProducts = (name) =>
+export const allCategories = () =>
   dispatch =>
-    axios.get(`/api/categories/${name}`)
-      .then(res => dispatch(getProductsByCat(res.data)))
+    axios.get('/api/categories/')
+      .then(res => dispatch(getAllCategories(res.data)))
       .catch(err => console.log(err));
 
 /*** REDUCER ***/
 export default function (state = defaultState, action) {
-  let newState = Object.assign({}, state);
   switch (action.type) {
-    case PRODUCTS_BY_CAT:
-      return action.category;
+    case ALL_CATEGORIES:
+      return action.categories;
     default:
-      return newState;
+      return state;
   }
 }

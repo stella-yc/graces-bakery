@@ -11,9 +11,7 @@ export const Nav = (props) => {
     <div className="header">
     <Link to="/home"><h1 className="logo">Grace's Bakery</h1></Link>
       <nav>
-        <NavLink to="/category/bread">Bread</NavLink>
-        <NavLink to="/category/pastry">Pastry</NavLink>
-        <NavLink to="/category/cakes">Cakes</NavLink>
+        <NavLink to="/category/all">Shop</NavLink>
         {
           isLoggedIn
             ? <div className="account-info">

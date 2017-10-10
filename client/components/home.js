@@ -1,5 +1,5 @@
 import React from 'react';
-import Nav from './nav';
+import { Link } from 'react-router-dom';
 
 const Jumbotron = () => {
   return (
@@ -8,7 +8,7 @@ const Jumbotron = () => {
         <span>Quality, baked goods
         <br />delivered to your doorstep</span>
         <div>
-          <button><a href="#">Shop Now</a></button>
+          <button><Link to="/category/all">Shop Now</Link></button>
         </div>
       </h1>
       <img className="chevron" src="/img/chevron-down.png" />

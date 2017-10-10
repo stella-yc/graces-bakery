@@ -14,6 +14,18 @@ const Category = db.define('category', {
   },
   description: {
     type: Sequelize.TEXT
+  },
+  image: {
+    type: Sequelize.STRING,
+    defaultValue: 'bread.jpg',
+    validate: {
+      isUrl: true
+    },
+    get() {
+      const imgName = this.getDataValue('image');
+      // 'this' allows you to access attributes of the instance
+      return `/img/${imgName}`;
+    },
   }
 },
 {

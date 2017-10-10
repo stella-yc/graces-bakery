@@ -120,7 +120,11 @@ body {
       padding: 0.5em 1em;
       color: black;
       font-size: 1.5rem;
+      a {
+        color: black;
+      }
     }
+
   }
   .chevron {
     position: absolute;
@@ -207,7 +211,32 @@ body {
     margin: 0;
   }
 }
-
+.cat-header {
+  margin: 1em;
+}
+.category {
+  margin-bottom: 2em;
+  position: relative;
+  h1 {
+    margin: 0.5em;
+    position: absolute;
+    top: 1em;
+    left: 1em;
+    color: white;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: inline-block;
+    padding: 0.5em;
+  }
+}
+.cat-img {
+  width: 100vw;
+  height: 30vh;
+  overflow: hidden;
+  img {
+    width: 100%;
+    height: auto;
+  }
+}
 /***** Product *****/
 .prod-description {
   padding: 2em 1em;
