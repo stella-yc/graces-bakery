@@ -1,4 +1,5 @@
 $grey: #D8D8D8;
+$lightgrey: #F0F0F0;
 $blue: #6084D8;
 $green: #68BFA3;
 $purple: #D3B0FF;
@@ -103,15 +104,22 @@ body {
     position: absolute;
     top: 45vh;
     left: 5vw;
-    width: 100%;
     line-height: 1.3em;
     span {
       color: #fff;
       background-color: rgba(42, 42, 42, 0.6);
       margin-top: 1em;
     }
+    button {
+      background-color: rgba(255, 255, 255, 0.6);
+      border: none;
+      border-radius: 6px;
+      margin-top: 1rem;
+      padding: 0.5em 1em;
+      color: black;
+      font-size: 1.5rem;
+    }
   }
-
   .chevron {
     position: absolute;
     z-index: 100;
@@ -122,28 +130,70 @@ body {
   }
 }
 
-.about {
-  background-color: $grey;
-  color: black;
-  padding: 2em 2em;
-  font-size: 1.2em;
-  line-height: 1.5em;
-}
-
-.about-img {
-  width: 100%;
-  img {
-    width: 100%;
-    height: auto;
-  }
-}
-
-
 @media (min-width: 950px) {
   .jumbotron {
     background-size: 100% auto;
   }
 }
+
+.about {
+  .about-text {
+    background-color: $grey;
+    color: black;
+    padding: 2em 2em;
+    font-size: 1.2em;
+    line-height: 1.5em;
+  }
+
+  .about-img {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    img {
+      width: 100%;
+      height: auto;
+      margin: 0;
+      padding: 0;
+    }
+  }
+}
+
+.descriptor {
+  text-align: center;
+  padding: 1em 0;
+  background-color: $lightgrey;
+  .descriptor-container {
+    padding: 3em 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    .descriptor-box {
+      width: 33%;
+    }
+  }
+}
+
+.ingredients {
+  text-align: center;
+  color: white;
+  height: 50vh;
+  background-image: url("/img/wheat.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: bottom right;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  .ingred-btn {
+    background-color: rgba(255, 255, 255, 0.8);
+    border: none;
+    border-radius: 6px;
+    padding: 0.5em 1em;
+    color: black;
+  }
+
+}
+
 
 
 /***** Product *****/
@@ -188,9 +238,15 @@ body {
     margin-bottom: 2em;
   }
 }
+
+.prod-container {
+  display: flex;
+  flex-wrap: wrap;
+}
 .product-icon {
   text-align: center;
-  margin-bottom: 3em;
+  padding-bottom: 3em;
+  margin: 0 auto;
   .img-container {
     width: 70vw;
     height: 70vw;
@@ -204,5 +260,14 @@ body {
   h3 {
     font-family: 'Abril Fatface', cursive;
   }
+}
 
+@media (min-width: 950px) {
+  .product-icon {
+    .img-container {
+      width: 25vw;
+      height: 25vw;
+      padding: 0 2em;
+    }
+  }
 }

@@ -38,12 +38,14 @@ export class Products extends Component {
           <h3>{categories.displayName}</h3>
           <p>{categories.description}</p>
         </div>
+        <div className="prod-container">
 
         {
           categories.products.map(prod => {
             return <ProductIcon key={prod.id} prod={prod} />;
           })
         }
+        </div>
       </div>
     );
   }
