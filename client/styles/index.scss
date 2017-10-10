@@ -237,6 +237,19 @@ body {
     height: auto;
   }
 }
+
+@media (min-width: 1000px) {
+  .category {
+    h1 {
+      left: 15%;
+    }
+    .cat-img {
+      width: 80vw;
+      margin: 0 auto;
+    }
+  }
+
+}
 /***** Product *****/
 .prod-description {
   padding: 2em 1em;
