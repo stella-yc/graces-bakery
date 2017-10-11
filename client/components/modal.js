@@ -5,10 +5,13 @@ const myModal = (props) => {
   console.log('signin modal');
   return (
     <Modal
-    isOpen={props.open}
+      isOpen={props.open}
+      className="modal"
+      overlayClassName="overlay"
+      shouldCloseOnOverlayClick={true}
     >
       <p>{props.content}</p>
-      <button onClick={props.closeModal}>Close</button>
+      <button className="modal-btn" onClick={props.closeModal}>Close</button>
     </Modal>
   );
 };

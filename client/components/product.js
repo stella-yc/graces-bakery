@@ -14,6 +14,7 @@ export class Product extends Component {
     this.state = {
       showProducts: false,
       showModal: false,
+      showModalCart: false,
       quantity: 1
     };
     this.cartClick = this.cartClick.bind(this);
@@ -45,6 +46,7 @@ export class Product extends Component {
         quantity: +this.state.quantity
       };
       this.props.addProductToCart(user.id, addProd);
+      this.setState({showModalCart: true});
     }
   }
 
@@ -75,13 +77,23 @@ export class Product extends Component {
               quantity={30}
               handleChange={this.handleChange}
             />
-            <button className="cart-btn" onClick={this.cartClick}>Add to Cart</button>
+            <button
+              className="cart-btn"
+              onClick={this.cartClick}
+            >
+              Add to Cart
+            </button>
           </div>
         </div>
         <Modal
           open={this.state.showModal}
           content="You must be logged in before adding to cart."
           closeModal={() => this.setState({showModal: false})}
+        />
+        <Modal
+          open={this.state.showModalCart}
+          content="Added to Cart!"
+          closeModal={() => this.setState({showModalCart: false})}
         />
       </div>
     );
