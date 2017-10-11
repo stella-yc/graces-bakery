@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withRouter, NavLink, Link } from 'react-router-dom';
-import { logout } from '../store';
+import { logout, removeCart } from '../store';
 
 /*** COMPONENT ***/
 export const Nav = (props) => {
@@ -21,7 +21,7 @@ export const Nav = (props) => {
                 My Account
               </NavLink>
               <NavLink
-                to="/home">
+                to="/cart">
                 Cart
               </NavLink>
               <a
@@ -62,6 +62,7 @@ const mapDispatch = (dispatch) => {
   return {
     handleClick () {
       dispatch(logout());
+      dispatch(removeCart());
     }
   };
 };

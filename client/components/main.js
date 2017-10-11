@@ -7,6 +7,7 @@ import Home from './home';
 import Products from './products';
 import Product from './product';
 import Categories from './categories';
+import Cart from './cart';
 import PrivateRoute from './private-route';
 import { me, allProducts } from '../store';
 import { connect } from 'react-redux';
@@ -31,6 +32,7 @@ export class Main extends Component {
           <Route path="/category/all" component={Categories} />
           <Route path="/category/:cid" component={Products} />
           <Route path="/products/:pid" component={Product} />
+          <PrivateRoute path="/cart" component={Cart} />
           <PrivateRoute path="/dashboard" component={UserHome} />
         </Switch>
       </div>
