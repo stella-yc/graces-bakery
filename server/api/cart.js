@@ -16,7 +16,6 @@ router
       }
     })
       .spread((cart, created) => {
-        console.log('created: ', created);
         req.cart = cart;
         next();
         return cart;
@@ -53,8 +52,8 @@ router
   })
 
   .put('/:uid/editCart', selfOrAdmin, (req, res, next) => {
-    const productId = req.body.cart;
-    const quantity = req.body.quantity;
+    const productId = req.body.productId;
+    const quantity = +req.body.quantity;
     return CartDetail.findOrCreate({
       where: {
         cartId: req.cart.id,
@@ -70,6 +69,19 @@ router
         return req.cart.addProduct(productId, { through: { quantity: quantity } });
       }
     })
+    .then(() => res.json(req.cart))
+    .catch(next);
+  })
+
+  .put('/:uid/removeProduct', selfOrAdmin, (req, res, next) => {
+    const productId = req.body.productId;
+    return CartDetail.findOne({
+      where: {
+        cartId: req.cart.id,
+        productId: productId
+      }
+    })
+    .then(cartDetail => cartDetail.destroy())
     .then(() => res.json(req.cart))
     .catch(next);
   });

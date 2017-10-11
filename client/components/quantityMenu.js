@@ -1,21 +1,25 @@
 import React from 'react';
 
 const QuantityMenu = (props) => {
-  let { quantity } = props;
+  let { quantity, selected } = props;
   quantity = +quantity;
+  selected = +selected;
   const values = [];
   for (let i = 1; i <= quantity; i++) {
     values.push(i);
   }
-  const options = values.map(val =>
-    <option key={val} value={val}>{val}</option>
+  const options = values.map(val => {
+    return (<option key={val} value={val}>{val}</option>);
+  }
+
   );
   return (
     <form >
     <div className="form-element">
-      <label htmlFor="quantity">Quantity</label>
       <select
         name="quantity"
+        value={props.selected}
+        onChange={props.handleChange}
       >
       { options }
       </select>

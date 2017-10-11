@@ -17,6 +17,7 @@ export class Product extends Component {
       quantity: 1
     };
     this.cartClick = this.cartClick.bind(this);
+    this.handleChange = this.handleChange.bind(this);
   }
   componentDidMount() {
     this.props.singleProduct(this.props.match.params.pid);
@@ -41,17 +42,19 @@ export class Product extends Component {
     } else {
       const addProd = {
         productId: product.id,
-        quantity: this.state.quantity
+        quantity: +this.state.quantity
       };
       this.props.addProductToCart(user.id, addProd);
     }
   }
 
-  handleChange(quantity) {
+  handleChange(event) {
+    const quantity = event.target.value;
     this.setState({
       quantity: quantity
     });
   }
+
   render() {
     const { product } = this.props;
     if (!product.id) {
@@ -67,7 +70,11 @@ export class Product extends Component {
           <h4 className="price">{`$${product.price}`}</h4>
           <p className="description">{product.description}</p>
           <div>
-            <QuantityMenu quantity={30} handleChange={this.handleChange}/>
+            <p>Quantity</p>
+            <QuantityMenu
+              quantity={30}
+              handleChange={this.handleChange}
+            />
             <button className="cart-btn" onClick={this.cartClick}>Add to Cart</button>
           </div>
         </div>

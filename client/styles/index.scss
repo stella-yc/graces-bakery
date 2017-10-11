@@ -367,6 +367,27 @@ body {
         height: auto;
       }
     }
+    .remove-product-btn {
+      background-color: $red;
+      border: none;
+      border-radius: 6px;
+      padding: 0.5em 1em;
+      color: white;
+      margin: 1em 0;
+      font-size: 0.5rem;
+    }
+  }
+  .cart-subtotal {
+    display: inline-block;
+  }
+  .checkout-btn {
+    background-color: $purple;
+    border: none;
+    border-radius: 6px;
+    padding: 0.5em 1em;
+    margin-left: 1em;
+    display: inline-block;
+    color: white;
   }
 }
 

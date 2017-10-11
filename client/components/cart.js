@@ -4,26 +4,7 @@ import { connect } from 'react-redux';
 import { callGetCart } from '../store';
 import { withRouter, Link } from 'react-router-dom';
 
-const CartIcon = (props) => {
-  const { id, name, image, price } = props.product;
-  const { quantity } = props.product.CartDetail;
-  return (
-    <tr className="cart-icon">
-      <td className="grid-item cart-img-container">
-        <img src={image} />
-      </td>
-      <td className="grid-item cart-name">
-        <p>{name}</p>
-      </td>
-      <td className="grid-item cart-price">
-        <p>{`$${price}`}</p>
-      </td>
-      <td className="grid-item cart-quantity">
-        <p>{quantity}</p>
-      </td>
-    </tr>
-  );
-};
+import CartIcon from './cart-icon';
 
 const CartTable = (props) => {
   const { products } = props;
@@ -40,7 +21,10 @@ const CartTable = (props) => {
     <tbody>
     {
       products.map(prod => (
-        <CartIcon key={prod.id} product={prod} />
+        <CartIcon
+          key={prod.id}
+          product={prod}
+        />
       ))
     }
     </tbody>
@@ -49,13 +33,17 @@ const CartTable = (props) => {
 };
 
 /*** COMPONENT ***/
+
 export class Cart extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      showCart: false
+      showCart: false,
+      subTotal: 0
     };
+    this.calculateSubTotal = this.calculateSubTotal.bind(this);
   }
+
   componentDidMount () {
     if (this.props.user.id) {
       this.props.callGetCart(this.props.user.id);
@@ -67,9 +55,22 @@ export class Cart extends Component {
     if (nextProps.user.id !== this.props.user.id) {
       this.props.callGetCart(nextProps.user.id);
     }
+    if (nextProps.cart.id) {
+      this.calculateSubTotal(nextProps.cart);
+    }
     if (nextProps.cart.id !== this.props.cart.id) {
+      this.calculateSubTotal(nextProps.cart);
       this.setState({showCart: true});
     }
+  }
+
+  calculateSubTotal (cart) {
+    let subTotal = cart.products.reduce((acc, prod) => {
+      let sum = prod.price * prod.CartDetail.quantity;
+      return acc + sum;
+    }, 0);
+    subTotal = Math.round(subTotal * 100) / 100;
+    this.setState({ subTotal: subTotal });
   }
 
   render() {
@@ -80,7 +81,15 @@ export class Cart extends Component {
     return (
       <div className="cart">
         <h1>My Cart</h1>
-        <CartTable products={cart.products} />
+        <CartTable
+          products={cart.products}
+        />
+        <div>
+          <h4 className="cart-subtotal">
+            <b>SubTotal:</b> ${this.state.subTotal}
+          </h4>
+          <button className="checkout-btn">Checkout</button>
+        </div>
       </div>
     );
   }
