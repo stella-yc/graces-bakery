@@ -3,7 +3,50 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { callGetCart } from '../store';
 import { withRouter, Link } from 'react-router-dom';
-import ProductIcon from './product-icon';
+
+const CartIcon = (props) => {
+  const { id, name, image, price } = props.product;
+  const { quantity } = props.product.CartDetail;
+  return (
+    <tr className="cart-icon">
+      <td className="grid-item cart-img-container">
+        <img src={image} />
+      </td>
+      <td className="grid-item cart-name">
+        <p>{name}</p>
+      </td>
+      <td className="grid-item cart-price">
+        <p>{`$${price}`}</p>
+      </td>
+      <td className="grid-item cart-quantity">
+        <p>{quantity}</p>
+      </td>
+    </tr>
+  );
+};
+
+const CartTable = (props) => {
+  const { products } = props;
+  return (
+    <table className="cart-table">
+      <thead className="cart-table-header">
+      <tr>
+        <th></th>
+        <th>Name</th>
+        <th>Price</th>
+        <th>Quantity</th>
+      </tr>
+    </thead>
+    <tbody>
+    {
+      products.map(prod => (
+        <CartIcon key={prod.id} product={prod} />
+      ))
+    }
+    </tbody>
+    </table>
+  );
+};
 
 /*** COMPONENT ***/
 export class Cart extends Component {
@@ -35,18 +78,9 @@ export class Cart extends Component {
       return null;
     }
     return (
-      <div>
-        <div className="cat-description">
-          <h1>My Cart</h1>
-          <p>{cart.id}</p>
-        <div>
-        { cart.products.map(prod => (
-          <div key={prod.id}>{prod.name}</div>
-        )
-
-        )}
-        </div>
-        </div>
+      <div className="cart">
+        <h1>My Cart</h1>
+        <CartTable products={cart.products} />
       </div>
     );
   }
