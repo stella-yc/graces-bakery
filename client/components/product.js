@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withRouter, Link } from 'react-router-dom';
 
-import { singleProduct } from '../store';
+import { singleProduct, addProductToCart } from '../store';
 import QuantityMenu from './quantityMenu';
 import Modal from './modal';
 
@@ -13,7 +13,8 @@ export class Product extends Component {
     super(props);
     this.state = {
       showProducts: false,
-      showModal: false
+      showModal: false,
+      quantity: 1
     };
     this.cartClick = this.cartClick.bind(this);
   }
@@ -34,11 +35,23 @@ export class Product extends Component {
 
   cartClick() {
     console.log('button clicked');
-    if (!this.props.isLoggedIn) {
+    const { isLoggedIn, user, product } = this.props;
+    if (!isLoggedIn) {
       this.setState({showModal: true});
+    } else {
+      const addProd = {
+        productId: product.id,
+        quantity: this.state.quantity
+      };
+      this.props.addProductToCart(user.id, addProd);
     }
   }
 
+  handleChange(quantity) {
+    this.setState({
+      quantity: quantity
+    });
+  }
   render() {
     const { product } = this.props;
     if (!product.id) {
@@ -54,7 +67,7 @@ export class Product extends Component {
           <h4 className="price">{`$${product.price}`}</h4>
           <p className="description">{product.description}</p>
           <div>
-            <QuantityMenu quantity={30} />
+            <QuantityMenu quantity={30} handleChange={this.handleChange}/>
             <button className="cart-btn" onClick={this.cartClick}>Add to Cart</button>
           </div>
         </div>
@@ -71,12 +84,14 @@ export class Product extends Component {
 /*** CONTAINER ***/
 const mapState = (state) => {
   return {
+    user: state.user,
     product: state.products.product,
-    isLoggedIn: !!state.user.id
+    isLoggedIn: !!state.user.id,
+    cart: state.cart
   };
 };
 
-export default withRouter(connect(mapState, { singleProduct })(Product));
+export default withRouter(connect(mapState, { singleProduct, addProductToCart })(Product));
 
 /*** PROP TYPES ***/
 Product.propTypes = {

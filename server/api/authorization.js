@@ -14,7 +14,9 @@ const unAuthError = () => {
 
 const selfOnly = (req, res, next) => {
   isLoggedIn(req.user);
-  if (req.params.uid !== req.user.id) {
+  let paramId = +req.params.uid;
+  let userId = +req.user.id;
+  if (paramId !== userId) {
     unAuthError();
   }
   next();

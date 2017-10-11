@@ -31,14 +31,21 @@ export class Cart extends Component {
 
   render() {
     const { cart } = this.props;
-    if (!cart) {
+    if (!cart.products) {
       return null;
     }
     return (
       <div>
         <div className="cat-description">
-          <h1>Cart</h1>
+          <h1>My Cart</h1>
           <p>{cart.id}</p>
+        <div>
+        { cart.products.map(prod => (
+          <div key={prod.id}>{prod.name}</div>
+        )
+
+        )}
+        </div>
         </div>
       </div>
     );

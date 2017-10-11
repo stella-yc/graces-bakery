@@ -1,29 +1,76 @@
 const router = require('express').Router();
 const db = require('../db');
 const Cart = db.model('cart');
-const { adminOnly } = require('./authorization');
+const CartDetail = db.model('CartDetail');
+const { selfOnly, selfOrAdmin  } = require('./authorization');
 
 module.exports = router;
 
 const CartProducts = Cart.scope('products');
 
 router
-  .get('/:uid', (req, res, next) => {
+  .param('uid', (req, res, next, uid) => {
     return CartProducts.findOrCreate({
       where: {
-        userId: req.params.uid
+        userId: uid
       }
     })
       .spread((cart, created) => {
         console.log('created: ', created);
-        return res.json(cart);
+        req.cart = cart;
+        next();
+        return cart;
       })
       .catch(next);
   })
 
-  .put('/:cid', adminOnly, (req, res, next) => {
-    return req.category.update(req.body)
-    .then(updatedCat => res.status(200).json(updatedCat))
+  .get('/:uid', selfOrAdmin, (req, res, next) => {
+    return res.json(req.cart);
+  })
+
+  .put('/:uid/addProduct', selfOnly, (req, res, next) => {
+    const productId = req.body.productId;
+    const quantity = +req.body.quantity;
+    return CartDetail.findOrCreate({
+      where: {
+        cartId: req.cart.id,
+        productId: productId
+      }
+    })
+    .spread((cartDetail, created) => {
+      if (!created) {
+        let oldQuantity = +cartDetail.quantity;
+        let newQuantity = quantity + oldQuantity;
+        return cartDetail.update({
+          quantity: newQuantity
+        });
+      } else {
+        return req.cart.addProduct(productId, { through: { quantity: quantity } });
+      }
+    })
+    .then(() => res.json(req.cart))
     .catch(next);
   })
+
+  .put('/:uid/editCart', selfOrAdmin, (req, res, next) => {
+    const productId = req.body.cart;
+    const quantity = req.body.quantity;
+    return CartDetail.findOrCreate({
+      where: {
+        cartId: req.cart.id,
+        productId: productId
+      }
+    })
+    .spread((cartDetail, created) => {
+      if (!created) {
+        return cartDetail.update({
+          quantity: quantity
+        });
+      } else {
+        return req.cart.addProduct(productId, { through: { quantity: quantity } });
+      }
+    })
+    .then(() => res.json(req.cart))
+    .catch(next);
+  });
 

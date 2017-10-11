@@ -26,5 +26,6 @@ module.exports = {
   User,
   Product,
   Category,
-  Cart
+  Cart,
+  CartDetail
 };
