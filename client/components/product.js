@@ -36,17 +36,13 @@ export class Product extends Component {
 
   cartClick() {
     console.log('button clicked');
-    const { isLoggedIn, product, cart } = this.props;
-    // if (!isLoggedIn) {
-    //   this.setState({showModal: true});
-    // } else {
+    const { product, cart } = this.props;
       const addProd = {
         productId: product.id,
         quantity: +this.state.quantity
       };
       this.props.addProductToCart(cart.id, addProd);
       this.setState({showModalCart: true});
-    // }
   }
 
   handleChange(event) {
@@ -85,11 +81,6 @@ export class Product extends Component {
             </button>
           </div>
         </div>
-        <Modal
-          open={this.state.showModal}
-          content="You must be logged in before adding to cart."
-          closeModal={() => this.setState({showModal: false})}
-        />
         <Modal
           open={this.state.showModalCart}
           content={<Link to="/cart">Added to Cart!</Link>}
