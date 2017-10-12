@@ -12,11 +12,13 @@ const Category = (props) => {
       <Link to={`/category/${name}`}>
         <h1 className="cat-name">{displayName}</h1>
       </Link>
-      <div className="cat-img">
-        <Link to={`/category/${name}`}>
-          <img src={image} />
-          </Link>
-      </div>
+      <Link to={`/category/${name}`}>
+        <div
+          className="cat-img"
+          style={{backgroundImage: `url(${image})`}}
+        />
+      </Link>
+
     </div>
   );
 };

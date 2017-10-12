@@ -18,9 +18,6 @@ const Category = db.define('category', {
   image: {
     type: Sequelize.STRING,
     defaultValue: 'bread.jpg',
-    validate: {
-      isUrl: true
-    },
     get() {
       const imgName = this.getDataValue('image');
       // 'this' allows you to access attributes of the instance

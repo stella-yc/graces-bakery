@@ -231,7 +231,8 @@ const productInstances = [
 const categoryData = {
   name: ['bread', 'pastry', 'cakes', 'smallBites'],
   displayName: ['Bread', 'Pastry', 'Cakes', 'Small Bites'],
-  description: ['Savory and sweet!', 'For every occasion', 'Decadent treats', 'Beloved by all']
+  description: ['Savory and sweet!', 'For every occasion', 'Decadent treats', 'Beloved by all'],
+  image: ['bread.jpg', 'pastries.jpg', 'cakes.jpg', 'smallBites.jpg']
 };
 
 
