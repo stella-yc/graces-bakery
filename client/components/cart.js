@@ -8,6 +8,14 @@ import CartIcon from './cart-icon';
 
 const CartTable = (props) => {
   const { products } = props;
+  if (!products || products.length === 0) {
+    return (
+      <div>
+        <h2>Your Cart is Empty!</h2>
+        <h2>:(</h2>
+      </div>
+    );
+  }
   return (
     <table className="cart-table">
       <thead className="cart-table-header">
@@ -20,7 +28,7 @@ const CartTable = (props) => {
     </thead>
     <tbody>
     {
-      products.map(prod => (
+      products && products.map(prod => (
         <CartIcon
           key={prod.id}
           product={prod}
@@ -65,6 +73,9 @@ export class Cart extends Component {
   }
 
   calculateSubTotal (cart) {
+    if (!cart.products) {
+      return this.setState({ subTotal: 0 });
+    }
     let subTotal = cart.products.reduce((acc, prod) => {
       let sum = prod.price * prod.CartDetail.quantity;
       return acc + sum;
@@ -75,20 +86,20 @@ export class Cart extends Component {
 
   render() {
     const { cart } = this.props;
-    if (!cart.products) {
-      return null;
-    }
+
     return (
-      <div className="cart">
-        <h1>My Cart</h1>
-        <CartTable
-          products={cart.products}
-        />
-        <div>
-          <h4 className="cart-subtotal">
-            <b>SubTotal:</b> ${this.state.subTotal}
-          </h4>
-          <button className="checkout-btn">Checkout</button>
+      <div className="cart-container">
+        <div className="cart">
+          <h1>My Cart</h1>
+          <CartTable
+            products={cart.products}
+          />
+          <div>
+            <h4 className="cart-subtotal">
+              <b>SubTotal:</b> ${this.state.subTotal}
+            </h4>
+            <button className="checkout-btn">Checkout</button>
+          </div>
         </div>
       </div>
     );

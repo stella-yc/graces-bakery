@@ -342,10 +342,19 @@ body {
 
 /***** Cart *****/
 
+.cart-container {
+  height: 100vh;
+  background-color: $lightgrey;
+  padding: 1em;
+}
 .cart {
   width: 100%;
   max-width: 570px;
   margin: 0 auto;
+  border: 1px solid $grey;
+  border-radius: 6px;
+  padding: 1em;
+  background-color: white;
   .cart-table {
     width: 100%;
     td {
@@ -357,14 +366,9 @@ body {
         text-align: left;
       }
     }
-    .cart-name, .cart-price {
-      text-align: left;
-    }
-    .cart-quantity {
-      text-align: center;
-    }
     .grid-item {
       padding: 0.5em 0.5em;
+      text-align: left;
     }
     .cart-img-container {
       width: 50px;
@@ -443,7 +447,7 @@ body {
   background-color: rgba(0, 0, 0, 0.5);
 }
 
-/***** Modal *****/
+/***** Profile *****/
 
 .profile {
   background-color: $lightgrey;
