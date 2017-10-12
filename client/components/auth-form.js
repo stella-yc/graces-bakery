@@ -48,7 +48,7 @@ export class AuthForm extends Component {
           <h3>{displayName}</h3>
           <form onSubmit={this.submitAuth} name={name}>
             <div className="form-element">
-              <label htmlFor="email"><small>Email</small></label>
+              <label htmlFor="email">Email</label>
               <input
                 id="input-email"
                 name="email"
@@ -57,7 +57,7 @@ export class AuthForm extends Component {
               />
             </div>
             <div className="form-element">
-              <label htmlFor="password"><small>Password</small></label>
+              <label htmlFor="password">Password</label>
               <input
                 id="input-password"
                 name="password"
@@ -74,7 +74,6 @@ export class AuthForm extends Component {
             </div>
             {error && error.response && <div> {error.response.data} </div>}
           </form>
-          <a href="/auth/google">{displayName} with Google</a>
         </div>
     );
   }
