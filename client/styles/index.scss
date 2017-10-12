@@ -251,12 +251,11 @@ body {
   margin-bottom: 1em;
   .img-container {
     width: 80vw;
-    height: 80vw;
-    overflow: hidden;
+    height: auto;
     margin: 0 auto;
     img {
-      height: 100%;
-      width: auto;
+      height: auto;
+      width: 100%;
     }
   }
   .prod-details {
@@ -321,10 +320,8 @@ body {
     height: 70vw;
     overflow: hidden;
     margin: 0 auto;
-    img {
-      height: 100%;
-      width: auto;
-    }
+    background-position: center center;
+    background-size: cover;
   }
   h3 {
     font-family: 'Abril Fatface', cursive;
