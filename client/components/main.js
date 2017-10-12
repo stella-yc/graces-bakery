@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 import { Route, Switch, withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+
 import { Login } from './auth-form';
 import Signup from './signup';
 import Nav from './nav';
@@ -10,9 +13,9 @@ import Product from './product';
 import Categories from './categories';
 import Cart from './cart';
 import PrivateRoute from './private-route';
+import Checkout from './checkout';
 import { me, allProducts, callGetCart } from '../store';
-import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
+
 
 /*** COMPONENT ***/
 export class Main extends Component {
@@ -34,6 +37,7 @@ export class Main extends Component {
           <Route path="/category/:cid" component={Products} />
           <Route path="/products/:pid" component={Product} />
           <Route path="/cart" component={Cart} />
+          <Route path="/checkout" component={Checkout} />
           <PrivateRoute path="/dashboard" component={UserHome} />
         </Switch>
       </div>

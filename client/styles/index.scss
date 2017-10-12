@@ -479,3 +479,29 @@ body {
     width: 10em;
   }
 }
+
+/***** Checkout *****/
+
+.checkout {
+  text-align: center;
+  width: 100%;
+  margin: 0 auto;
+  img {
+    width: 100%;
+    height: auto;
+  }
+  p {
+    padding: 1em;
+    line-height: 1.5em;
+  }
+}
+@media (min-width: 400px) {
+  .checkout {
+    width: 50vw;
+    img {
+      width: 50vw;
+      height: auto;
+    }
+
+  }
+}
