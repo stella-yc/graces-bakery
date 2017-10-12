@@ -75,6 +75,7 @@ export class Product extends Component {
             <p>Quantity</p>
             <QuantityMenu
               quantity={30}
+              selected={this.state.quantity}
               handleChange={this.handleChange}
             />
             <button
@@ -92,7 +93,7 @@ export class Product extends Component {
         />
         <Modal
           open={this.state.showModalCart}
-          content="Added to Cart!"
+          content={<Link to="/cart">Added to Cart!</Link>}
           closeModal={() => this.setState({showModalCart: false})}
         />
       </div>

@@ -2,7 +2,6 @@ import React from 'react';
 import Modal from 'react-modal';
 
 const myModal = (props) => {
-  console.log('signin modal');
   return (
     <Modal
       isOpen={props.open}

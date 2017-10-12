@@ -1,7 +1,7 @@
 import React from 'react';
 
 const QuantityMenu = (props) => {
-  let { quantity, selected } = props;
+  let { quantity, selected, handleChange } = props;
   quantity = +quantity;
   selected = +selected;
   const values = [];
@@ -18,8 +18,8 @@ const QuantityMenu = (props) => {
     <div className="form-element">
       <select
         name="quantity"
-        value={props.selected}
-        onChange={props.handleChange}
+        value={selected}
+        onChange={handleChange}
       >
       { options }
       </select>

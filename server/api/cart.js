@@ -36,40 +36,34 @@ router
         productId: productId
       }
     })
-    .spread((cartDetail, created) => {
-      if (!created) {
-        let oldQuantity = +cartDetail.quantity;
-        let newQuantity = quantity + oldQuantity;
-        return cartDetail.update({
-          quantity: newQuantity
-        });
-      } else {
-        return req.cart.addProduct(productId, { through: { quantity: quantity } });
-      }
+    .spread((cartDetail, _) => {
+      let oldQuantity = +cartDetail.quantity;
+      let newQuantity = quantity + oldQuantity;
+      return req.cart.addProduct(productId, { through: { quantity: newQuantity } });
     })
-    .then(() => res.json(req.cart))
+    .then(() => {
+      return CartProducts.findOne({
+        where: {
+          userId: req.params.uid
+        }
+      });
+    })
+    .then((updatedCart) => res.json(updatedCart))
     .catch(next);
   })
 
   .put('/:uid/editCart', selfOrAdmin, (req, res, next) => {
     const productId = req.body.productId;
     const quantity = +req.body.quantity;
-    return CartDetail.findOrCreate({
-      where: {
-        cartId: req.cart.id,
-        productId: productId
-      }
+    return req.cart.addProduct(productId, { through: { quantity: quantity } })
+    .then(() => {
+      return CartProducts.findOne({
+        where: {
+          userId: req.params.uid
+        }
+      });
     })
-    .spread((cartDetail, created) => {
-      if (!created) {
-        return cartDetail.update({
-          quantity: quantity
-        });
-      } else {
-        return req.cart.addProduct(productId, { through: { quantity: quantity } });
-      }
-    })
-    .then(() => res.json(req.cart))
+    .then((updatedCart) => res.json(updatedCart))
     .catch(next);
   })
 
