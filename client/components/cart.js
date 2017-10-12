@@ -56,6 +56,9 @@ export class Cart extends Component {
     if (this.props.user.id) {
       this.props.callGetCart();
     }
+    if (this.props.cart.id) {
+      this.calculateSubTotal(this.props.cart);
+    }
     window.scrollTo(0, 0);
   }
 
@@ -63,7 +66,7 @@ export class Cart extends Component {
     if (nextProps.user.id !== this.props.user.id) {
       this.props.callGetCart(nextProps.user.id);
     }
-    if (nextProps.cart && nextProps.cart.id) {
+    if (nextProps.cart.id) {
       this.calculateSubTotal(nextProps.cart);
     }
     if (nextProps.cart.id !== this.props.cart.id) {
@@ -73,6 +76,7 @@ export class Cart extends Component {
   }
 
   calculateSubTotal (cart) {
+    console.log('calculateSubTotal called');
     if (!cart.products) {
       return this.setState({ subTotal: 0 });
     }
@@ -98,7 +102,9 @@ export class Cart extends Component {
             <h4 className="cart-subtotal">
               <b>SubTotal:</b> ${this.state.subTotal}
             </h4>
-            <button className="checkout-btn">Checkout</button>
+            <Link to="/checkout">
+              <button className="checkout-btn">Checkout</button>
+            </Link>
           </div>
         </div>
       </div>
