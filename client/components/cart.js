@@ -80,7 +80,7 @@ export class Cart extends Component {
       let sum = prod.price * prod.CartDetail.quantity;
       return acc + sum;
     }, 0);
-    subTotal = Math.round(subTotal * 100) / 100;
+    subTotal = parseFloat(Math.round(subTotal * 100) / 100).toFixed(2);
     this.setState({ subTotal: subTotal });
   }
 
