@@ -54,7 +54,7 @@ export class Cart extends Component {
 
   componentDidMount () {
     if (this.props.user.id) {
-      this.props.callGetCart(this.props.user.id);
+      this.props.callGetCart();
     }
     window.scrollTo(0, 0);
   }
@@ -63,7 +63,7 @@ export class Cart extends Component {
     if (nextProps.user.id !== this.props.user.id) {
       this.props.callGetCart(nextProps.user.id);
     }
-    if (nextProps.cart.id) {
+    if (nextProps.cart && nextProps.cart.id) {
       this.calculateSubTotal(nextProps.cart);
     }
     if (nextProps.cart.id !== this.props.cart.id) {

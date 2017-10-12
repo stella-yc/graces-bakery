@@ -16,31 +16,31 @@ const removeCartProduct = prodInfo => ({ type: REMOVE_CART_PRODUCT, prodInfo});
 export const removeCart = () => ({ type: REMOVE_CART });
 
 /*** THUNK CREATORS ***/
-export const callGetCart = (uid) =>
+export const callGetCart = () =>
   dispatch =>
-    axios.get(`/api/cart/${uid}`)
+    axios.get('/api/cart/')
       .then(res =>
         dispatch(getCart(res.data)))
       .catch(err => console.log(err));
 
-export const addProductToCart = (uid, productInfo) =>
+export const addProductToCart = (cid, productInfo) =>
   dispatch =>
-    axios.put(`/api/cart/${uid}/addProduct`, productInfo)
+    axios.put(`/api/cart/${cid}/addProduct`, productInfo)
       .then(res =>
         dispatch(updateCart(res.data)))
       .catch(err => console.log(err));
 
 
-export const sendUpdatedCart = (uid, productInfo) =>
+export const sendUpdatedCart = (cid, productInfo) =>
   dispatch =>
-    axios.put(`/api/cart/${uid}/editCart`, productInfo)
+    axios.put(`/api/cart/${cid}/editCart`, productInfo)
       .then(res =>
         dispatch(updateCart(res.data)))
       .catch(err => console.log(err));
 
-export const removeProduct = (uid, productId) =>
+export const removeProduct = (cid, productId) =>
   dispatch =>
-    axios.put(`/api/cart/${uid}/removeProduct`, productId)
+    axios.put(`/api/cart/${cid}/removeProduct`, productId)
       .then(() =>
         dispatch(removeCartProduct(productId)))
       .catch(err => console.log(err));

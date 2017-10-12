@@ -23,14 +23,14 @@ class CartIcon extends Component {
       quantity: +newQuantity,
       productId: this.props.product.id
     };
-    this.props.sendUpdatedCart(this.props.user.id, prodInfo);
+    this.props.sendUpdatedCart(this.props.cart.id, prodInfo);
   }
 
   handleRemove (event) {
     let prodInfo = {
       productId: this.props.product.id
     };
-    this.props.removeProduct(this.props.user.id, prodInfo);
+    this.props.removeProduct(this.props.cart.id, prodInfo);
   }
 
   render () {

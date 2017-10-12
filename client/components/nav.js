@@ -34,6 +34,10 @@ export const Nav = (props) => {
             : <div className="account-info">
               {/* The navbar will show these NavLinks before you log in */}
               <NavLink
+                to="/cart">
+                Cart
+              </NavLink>
+              <NavLink
                 className="account1"
                 to="/login">
                 Login

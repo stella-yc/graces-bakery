@@ -9,13 +9,39 @@ module.exports = router;
 const CartProducts = Cart.scope('products');
 
 router
-  .param('uid', (req, res, next, uid) => {
+
+  .get('/', (req, res, next) => {
+    console.log('****', req.session);
+    // if the user is NOT logged in
+    if (!req.user) {
+      // if the user already has a cart
+      if (req.session.cartId) {
+        return CartProducts.findById(req.session.cartId)
+          .then(cart => res.json(cart))
+          .catch(next);
+      } else {
+      // if the user does not have a cart yet
+        return Cart.create({})
+          .then(cart => {
+            req.session.cartId = cart.id;
+            return res.json(cart);
+          })
+          .catch(next);
+        }
+    }
+    // if the user is logged in
     return CartProducts.findOrCreate({
-      where: {
-        userId: uid
-      }
+      where: { userId: req.user.id }
     })
-      .spread((cart, created) => {
+      .spread((cart, _) => res.json(cart))
+      .catch(next);
+  })
+
+  .param('cid', (req, res, next, cid) => {
+    return CartProducts.findOne({
+      where: { id: cid }
+    })
+      .then(cart => {
         req.cart = cart;
         next();
         return cart;
@@ -23,11 +49,11 @@ router
       .catch(next);
   })
 
-  .get('/:uid', selfOrAdmin, (req, res, next) => {
+  .get('/:cid', (req, res, next) => {
     return res.json(req.cart);
   })
 
-  .put('/:uid/addProduct', selfOnly, (req, res, next) => {
+  .put('/:cid/addProduct', (req, res, next) => {
     const productId = req.body.productId;
     const quantity = +req.body.quantity;
     return CartDetail.findOrCreate({
@@ -42,32 +68,24 @@ router
       return req.cart.addProduct(productId, { through: { quantity: newQuantity } });
     })
     .then(() => {
-      return CartProducts.findOne({
-        where: {
-          userId: req.params.uid
-        }
-      });
+      return CartProducts.findById(req.params.cid);
     })
     .then((updatedCart) => res.json(updatedCart))
     .catch(next);
   })
 
-  .put('/:uid/editCart', selfOrAdmin, (req, res, next) => {
+  .put('/:cid/editCart', (req, res, next) => {
     const productId = req.body.productId;
     const quantity = +req.body.quantity;
     return req.cart.addProduct(productId, { through: { quantity: quantity } })
-    .then(() => {
-      return CartProducts.findOne({
-        where: {
-          userId: req.params.uid
-        }
-      });
-    })
+    .then(() =>
+      CartProducts.findById(req.params.cid)
+    )
     .then((updatedCart) => res.json(updatedCart))
     .catch(next);
   })
 
-  .put('/:uid/removeProduct', selfOrAdmin, (req, res, next) => {
+  .put('/:cid/removeProduct', (req, res, next) => {
     const productId = req.body.productId;
     return CartDetail.findOne({
       where: {

@@ -8,6 +8,7 @@ const cProduct = Product.scope('categories');
 
 router
   .param('pid', (req, res, next, pid) => {
+    console.log('req.session from Products', req.session);
     cProduct.findById(pid)
     .then(product => {
       if (!product) {

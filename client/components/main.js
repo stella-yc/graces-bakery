@@ -10,7 +10,7 @@ import Product from './product';
 import Categories from './categories';
 import Cart from './cart';
 import PrivateRoute from './private-route';
-import { me, allProducts } from '../store';
+import { me, allProducts, callGetCart } from '../store';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
@@ -33,7 +33,7 @@ export class Main extends Component {
           <Route path="/category/all" component={Categories} />
           <Route path="/category/:cid" component={Products} />
           <Route path="/products/:pid" component={Product} />
-          <PrivateRoute path="/cart" component={Cart} />
+          <Route path="/cart" component={Cart} />
           <PrivateRoute path="/dashboard" component={UserHome} />
         </Switch>
       </div>
@@ -56,6 +56,7 @@ const mapDispatch = (dispatch) => {
     loadInitialData () {
       dispatch(me());
       dispatch(allProducts());
+      dispatch(callGetCart());
     }
   };
 };

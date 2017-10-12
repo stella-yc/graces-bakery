@@ -26,7 +26,6 @@ export class Product extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    console.log('match', this.props.match.params.pid);
     if (nextProps.match.params.pid !== this.props.match.params.pid) {
       this.props.singleProduct(nextProps.match.params.pid);
     }
@@ -37,17 +36,17 @@ export class Product extends Component {
 
   cartClick() {
     console.log('button clicked');
-    const { isLoggedIn, user, product } = this.props;
-    if (!isLoggedIn) {
-      this.setState({showModal: true});
-    } else {
+    const { isLoggedIn, product, cart } = this.props;
+    // if (!isLoggedIn) {
+    //   this.setState({showModal: true});
+    // } else {
       const addProd = {
         productId: product.id,
         quantity: +this.state.quantity
       };
-      this.props.addProductToCart(user.id, addProd);
+      this.props.addProductToCart(cart.id, addProd);
       this.setState({showModalCart: true});
-    }
+    // }
   }
 
   handleChange(event) {
