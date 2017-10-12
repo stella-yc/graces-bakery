@@ -17,8 +17,8 @@ export const Nav = (props) => {
             ? <div className="account-info">
               {/* The navbar will show these NavLinks after you log in */}
               <NavLink
-                to="/home">
-                My Account
+                to="/dashboard">
+                Account
               </NavLink>
               <NavLink
                 to="/cart">
