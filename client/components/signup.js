@@ -1,16 +1,18 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
-import { login } from '../store';
+import { signup } from '../store';
 import { withRouter, Redirect } from 'react-router-dom';
 
 /*** COMPONENT***/
-export class AuthForm extends Component {
+export class Signup extends Component {
   constructor(props) {
     super(props);
     this.state = {
       redirectToHome: this.props.isLoggedIn || false,
       formName: this.props.name,
+      firstName: '',
+      lastName: '',
       email: '',
       password: ''
     };
@@ -19,8 +21,8 @@ export class AuthForm extends Component {
 
   submitAuth(evt) {
     evt.preventDefault();
-    const { formName, email, password } = this.state;
-    this.props.login(email, password, formName);
+    const { firstName, lastName, email, password, formName } = this.state;
+    this.props.signup(firstName, lastName, email, password, formName);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -47,6 +49,24 @@ export class AuthForm extends Component {
         <div className="auth-form">
           <h3>{displayName}</h3>
           <form onSubmit={this.submitAuth} name={name}>
+            <div className="form-element">
+              <label htmlFor="firstName"><small>First Name</small></label>
+              <input
+                id="input-firstName"
+                name="firstName"
+                type="text"
+                onChange={this.handleChange('firstName')}
+              />
+            </div>
+            <div className="form-element">
+              <label htmlFor="lastName"><small>Last Name</small></label>
+              <input
+                id="input-lastName"
+                name="lastName"
+                type="text"
+                onChange={this.handleChange('lastName')}
+              />
+            </div>
             <div className="form-element">
               <label htmlFor="email"><small>Email</small></label>
               <input
@@ -82,18 +102,6 @@ export class AuthForm extends Component {
 
 /*** CONTAINER ***/
 
-// Note that we have two different sets of 'mapStateToProps' functions -
-// one for Login, and one for Signup. However, they share the same
-// 'mapDispatchToProps' function, and share the same Component.
-const mapLogin = (state) => {
-  return {
-    name: 'login',
-    displayName: 'Login',
-    error: state.user.error,
-    isLoggedIn: !!state.user.id
-  };
-};
-
 const mapSignup = (state) => {
   return {
     name: 'signup',
@@ -103,13 +111,13 @@ const mapSignup = (state) => {
   };
 };
 
-export const Login = withRouter(connect(mapLogin, { login })(AuthForm));
+export default withRouter(connect(mapSignup, { signup })(Signup));
 
 /*** PROP TYPES ***/
-AuthForm.propTypes = {
+Signup.propTypes = {
   name: PropTypes.string.isRequired,
   displayName: PropTypes.string.isRequired,
   error: PropTypes.object,
   isLoggedIn: PropTypes.bool.isRequired,
-  login: PropTypes.func.isRequired
+  signup: PropTypes.func.isRequired
 };

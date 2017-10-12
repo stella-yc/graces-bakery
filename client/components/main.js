@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Route, Switch, withRouter } from 'react-router-dom';
-import { Login, Signup } from './auth-form';
+import { Login } from './auth-form';
+import Signup from './signup';
 import Nav from './nav';
 import UserHome from './user-home';
 import Home from './home';

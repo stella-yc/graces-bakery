@@ -86,7 +86,14 @@ body {
   display: block;
   color: white;
 }
-
+.btn-red {
+  background-color: $red;
+  border: none;
+  border-radius: 6px;
+  padding: 0.5em 1em;
+  display: block;
+  color: white;
+}
 /***** Homepage *****/
 
 .jumbotron {
@@ -436,3 +443,32 @@ body {
   background-color: rgba(0, 0, 0, 0.5);
 }
 
+/***** Modal *****/
+
+.profile {
+  background-color: $lightgrey;
+  padding: 1em;
+  height: 100vh;
+  .profile-title {
+    font-size: 1.5em;
+  }
+  .profile-label {
+    font-weight: bold;
+    padding-right: 1em;
+  }
+
+  .profile-label, .profile-data {
+    padding-top: 1em;
+  }
+  .profile-table {
+    background-color: white;
+    padding: 1em;
+    border-radius: 6px;
+    border: 1px solid $grey;
+    margin: 0 auto;
+  }
+  .logout-btn, .cart-btn {
+    margin: 1em auto;
+    width: 10em;
+  }
+}

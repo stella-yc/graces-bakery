@@ -55,14 +55,18 @@ router.post('/logout', (req, res) => {
   res.redirect('/');
 });
 
-router.get('/me', (req, res) =>
-  res.json({
-    id: req.user.id,
-    firstName: req.user.firstName,
-    lastName: req.user.lastName,
-    email: req.user.email,
-    isAdmin: req.user.isAdmin
-  })
-);
+router.get('/me', (req, res) => {
+  if (req.user) {
+    res.json({
+      id: req.user.id,
+      firstName: req.user.firstName,
+      lastName: req.user.lastName,
+      email: req.user.email,
+      isAdmin: req.user.isAdmin
+    });
+  } else {
+    res.json(req.user);
+  }
+});
 
 router.use('/google', require('./google'));
