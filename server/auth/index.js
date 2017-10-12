@@ -10,9 +10,9 @@ router.post('/login', (req, res, next) => {
   return User.findOne({ where: { email: req.body.email } })
     .then((user) => {
       if (!user) {
-        res.status(400).send('User not found');
+        return res.status(400).send('User not found');
       } else if (!user.correctPassword(req.body.password)) {
-        res.status(400).send('Incorrect password');
+        return res.status(400).send('Incorrect password');
       } else {
         return req.login(user, err => (
           err ? next(err)
@@ -56,7 +56,13 @@ router.post('/logout', (req, res) => {
 });
 
 router.get('/me', (req, res) =>
-  res.json(req.user)
+  res.json({
+    id: req.user.id,
+    firstName: req.user.firstName,
+    lastName: req.user.lastName,
+    email: req.user.email,
+    isAdmin: req.user.isAdmin
+  })
 );
 
 router.use('/google', require('./google'));
