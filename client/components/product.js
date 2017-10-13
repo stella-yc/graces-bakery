@@ -13,7 +13,6 @@ export class Product extends Component {
     super(props);
     this.state = {
       showProducts: false,
-      showModal: false,
       showModalCart: false,
       quantity: 1
     };
@@ -21,13 +20,13 @@ export class Product extends Component {
     this.handleChange = this.handleChange.bind(this);
   }
   componentDidMount() {
-    this.props.singleProduct(this.props.match.params.pid);
+    this.props.fetchProductInfo(this.props.match.params.pid);
     window.scrollTo(0, 0);
   }
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.match.params.pid !== this.props.match.params.pid) {
-      this.props.singleProduct(nextProps.match.params.pid);
+      this.props.fetchProductInfo(nextProps.match.params.pid);
     }
     if (nextProps.product.id) {
       this.setState({ showProducts: true });
@@ -35,21 +34,18 @@ export class Product extends Component {
   }
 
   cartClick() {
-    console.log('button clicked');
     const { product, cart } = this.props;
       const addProd = {
         productId: product.id,
         quantity: +this.state.quantity
       };
-      this.props.addProductToCart(cart.id, addProd);
+      this.props.addToCart(cart.id, addProd);
       this.setState({showModalCart: true});
   }
 
   handleChange(event) {
     const quantity = event.target.value;
-    this.setState({
-      quantity: quantity
-    });
+    this.setState({ quantity });
   }
 
   render() {
@@ -94,16 +90,28 @@ export class Product extends Component {
 /*** CONTAINER ***/
 const mapState = (state) => {
   return {
-    user: state.user,
     product: state.products.product,
-    isLoggedIn: !!state.user.id,
     cart: state.cart
   };
 };
 
-export default withRouter(connect(mapState, { singleProduct, addProductToCart })(Product));
+const mapDispatch = (dispatch) => {
+  return {
+    fetchProductInfo (pid) {
+      dispatch(singleProduct(pid));
+    },
+    addToCart (cid, pInfo) {
+      dispatch(addProductToCart(cid, pInfo));
+    }
+  };
+};
+
+export default withRouter(connect(mapState, mapDispatch)(Product));
 
 /*** PROP TYPES ***/
 Product.propTypes = {
-  product: PropTypes.object,
+  product: PropTypes.object.isRequired,
+  cart: PropTypes.object.isRequired,
+  fetchProductInfo: PropTypes.func.isRequired,
+  addToCart: PropTypes.func.isRequired
 };
