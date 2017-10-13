@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { login } from '../store';
 import { withRouter, Redirect } from 'react-router-dom';
+
+import { login } from '../store';
 
 /*** COMPONENT***/
 export class AuthForm extends Component {
@@ -39,7 +40,7 @@ export class AuthForm extends Component {
   }
 
   render () {
-    const {name, displayName, error, isLoggedIn} = this.props;
+    const {name, displayName, error } = this.props;
     if (this.state.redirectToHome) {
       return <Redirect to="/home" />;
     }
@@ -80,10 +81,6 @@ export class AuthForm extends Component {
 }
 
 /*** CONTAINER ***/
-
-// Note that we have two different sets of 'mapStateToProps' functions -
-// one for Login, and one for Signup. However, they share the same
-// 'mapDispatchToProps' function, and share the same Component.
 const mapLogin = (state) => {
   return {
     name: 'login',
@@ -93,16 +90,7 @@ const mapLogin = (state) => {
   };
 };
 
-const mapSignup = (state) => {
-  return {
-    name: 'signup',
-    displayName: 'Sign Up',
-    error: state.user.error,
-    isLoggedIn: !!state.user.id
-  };
-};
-
-export const Login = withRouter(connect(mapLogin, { login })(AuthForm));
+export default withRouter(connect(mapLogin, { login })(AuthForm));
 
 /*** PROP TYPES ***/
 AuthForm.propTypes = {
