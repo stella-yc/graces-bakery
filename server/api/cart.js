@@ -2,7 +2,6 @@ const router = require('express').Router();
 const db = require('../db');
 const Cart = db.model('cart');
 const CartDetail = db.model('CartDetail');
-const { selfOnly, selfOrAdmin  } = require('./authorization');
 
 module.exports = router;
 
@@ -11,7 +10,6 @@ const CartProducts = Cart.scope('products');
 router
 
   .get('/', (req, res, next) => {
-    console.log('****', req.session);
     // if the user is NOT logged in
     if (!req.user) {
       // if the user already has a cart
