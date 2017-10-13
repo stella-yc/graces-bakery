@@ -5,6 +5,7 @@ import { withRouter, Link } from 'react-router-dom';
 
 import { allCategories } from '../store';
 
+/*** PRESENTATIONAL SUB-COMPONENT ***/
 const Category = (props) => {
   const { name, displayName, image } = props.cat;
   return (
@@ -18,7 +19,6 @@ const Category = (props) => {
           style={{backgroundImage: `url(${image})`}}
         />
       </Link>
-
     </div>
   );
 };
@@ -33,7 +33,7 @@ export class Categories extends Component {
     };
   }
   componentDidMount() {
-    this.props.allCategories();
+    this.props.fetchCategories();
   }
 
   render() {
@@ -47,7 +47,6 @@ export class Categories extends Component {
           <h2>Our selection</h2>
           <p>Baked fresh daily</p>
         </div>
-
         {
           categories.map((category) =>
             <Category key={category.id} cat={category} />
@@ -65,9 +64,18 @@ const mapState = (state) => {
   };
 };
 
-export default withRouter(connect(mapState, { allCategories })(Categories));
+const mapDispatch = dispatch => {
+  return {
+    fetchCategories: () =>
+      dispatch(allCategories())
+  };
+};
+
+
+export default withRouter(connect(mapState, mapDispatch)(Categories));
 
 /*** PROP TYPES ***/
 Categories.propTypes = {
-  categories: PropTypes.array,
+  categories: PropTypes.array.isRequired,
+  fetchCategories: PropTypes.func.isRequired
 };
