@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
-import { signup } from '../store';
 import { withRouter, Redirect } from 'react-router-dom';
+
+import { signup } from '../store';
 
 /*** COMPONENT***/
 export class Signup extends Component {
