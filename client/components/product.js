@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withRouter, Link } from 'react-router-dom';
 
-import { singleProduct, addProductToCart } from '../store';
+import { singleProduct, addProductToCart, clearProductStore } from '../store';
 import QuantityMenu from './quantityMenu';
 import Modal from './modal';
 
@@ -20,7 +20,8 @@ export class Product extends Component {
     this.handleChange = this.handleChange.bind(this);
   }
   componentDidMount() {
-    this.props.fetchProductInfo(this.props.match.params.pid);
+    const { fetchProductInfo, match } = this.props;
+    fetchProductInfo(match.params.pid);
     window.scrollTo(0, 0);
   }
 
@@ -33,14 +34,18 @@ export class Product extends Component {
     }
   }
 
+  componentWillUnmount () {
+    this.props.clearProduct();
+  }
+
   cartClick() {
-    const { product, cart } = this.props;
-      const addProd = {
-        productId: product.id,
-        quantity: +this.state.quantity
-      };
-      this.props.addToCart(cart.id, addProd);
-      this.setState({showModalCart: true});
+    const { product, cart, addToCart } = this.props;
+    const addProd = {
+      productId: product.id,
+      quantity: +this.state.quantity
+    };
+    addToCart(cart.id, addProd);
+    this.setState({showModalCart: true});
   }
 
   handleChange(event) {
@@ -49,19 +54,19 @@ export class Product extends Component {
   }
 
   render() {
-    const { product } = this.props;
-    if (!product.id) {
+    const { id, image, name, price, description } = this.props.product;
+    if (!id) {
       return null;
     }
     return (
       <div className="prod-description">
         <div className="img-container">
-          <img src={product.image} />
+          <img src={image} />
         </div>
         <div className="prod-details">
-          <h2 className="title">{product.name}</h2>
-          <h4 className="price">{`$${product.price}`}</h4>
-          <p className="description">{product.description}</p>
+          <h2 className="title">{name}</h2>
+          <h4 className="price">{`$${price}`}</h4>
+          <p className="description">{description}</p>
           <div>
             <p>Quantity</p>
             <QuantityMenu
@@ -102,6 +107,9 @@ const mapDispatch = (dispatch) => {
     },
     addToCart (cid, pInfo) {
       dispatch(addProductToCart(cid, pInfo));
+    },
+    clearProduct () {
+      dispatch(clearProductStore());
     }
   };
 };
@@ -113,5 +121,6 @@ Product.propTypes = {
   product: PropTypes.object.isRequired,
   cart: PropTypes.object.isRequired,
   fetchProductInfo: PropTypes.func.isRequired,
-  addToCart: PropTypes.func.isRequired
+  addToCart: PropTypes.func.isRequired,
+  clearProduct: PropTypes.func.isRequired
 };
