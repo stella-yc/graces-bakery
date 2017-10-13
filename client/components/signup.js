@@ -20,8 +20,8 @@ export class Signup extends Component {
     this.submitAuth = this.submitAuth.bind(this);
   }
 
-  submitAuth(evt) {
-    evt.preventDefault();
+  submitAuth(event) {
+    event.preventDefault();
     const { firstName, lastName, email, password, formName } = this.state;
     this.props.signup(firstName, lastName, email, password, formName);
   }
@@ -42,7 +42,7 @@ export class Signup extends Component {
   }
 
   render () {
-    const {name, displayName, error, isLoggedIn} = this.props;
+    const {name, displayName, error } = this.props;
     if (this.state.redirectToHome) {
       return <Redirect to="/home" />;
     }
