@@ -2,12 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import { Link } from 'react-router-dom';
+
 import { logout, removeCart } from '../store';
 
 /*** COMPONENT ***/
 export const UserHome = (props) => {
-  const { email, firstName, lastName, id, isAdmin } = props.user;
-  const { handleClick } = props;
+  const { email, firstName, lastName } = props.user;
+  const { handleLogout } = props;
   return (
     <div className="profile">
       <table className="profile-table">
@@ -33,7 +34,7 @@ export const UserHome = (props) => {
       </table>
       <div className="profile-section">
         <Link to="/cart"><button className="btn-primary cart-btn">View Cart</button></Link>
-        <button className="btn-red logout-btn" onClick={handleClick}>Logout</button>
+        <button className="btn-red logout-btn" onClick={handleLogout}>Logout</button>
       </div>
 
     </div>
@@ -49,7 +50,7 @@ const mapState = (state) => {
 
 const mapDispatch = (dispatch) => {
   return {
-    handleClick () {
+    handleLogout () {
       dispatch(logout());
       dispatch(removeCart());
     }
@@ -60,5 +61,6 @@ export default connect(mapState, mapDispatch)(UserHome);
 
 /*** PROP TYPES ***/
 UserHome.propTypes = {
-  user: PropTypes.object
+  user: PropTypes.object.isRequired,
+  handleLogout: PropTypes.func.isRequired
 };
