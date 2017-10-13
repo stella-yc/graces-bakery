@@ -2,54 +2,64 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withRouter, NavLink, Link } from 'react-router-dom';
+
 import { logout, removeCart } from '../store';
+
+/*** SUB-COMPONENT ***/
+const NavLoggedIn = (props) => {
+  const { handleLogout } = props;
+  return (
+    <div className="account-info">
+      <NavLink to="/dashboard">Account</NavLink>
+      <NavLink to="/cart">Cart</NavLink>
+      <Link
+        id="logout-link"
+        to="/home"
+        onClick={handleLogout}
+      >
+        Logout
+      </Link>
+    </div>
+  );
+};
+
+/*** SUB-COMPONENT ***/
+const NavLoggedOut = () => {
+  return (
+    <div className="account-info">
+      <NavLink to="/cart">Cart</NavLink>
+      <NavLink
+        className="account1"
+        to="/login">
+        Login
+      </NavLink>
+      <span className="divider">/</span>
+      <NavLink
+        className="account2"
+        to="/signup">
+        Sign Up
+      </NavLink>
+    </div>
+  );
+};
 
 /*** COMPONENT ***/
 export const Nav = (props) => {
-  const {handleClick, isLoggedIn} = props;
+  const { handleLogout, isLoggedIn } = props;
+  const generateNavLinks = (loggedIn) => {
+    if (loggedIn) {
+      return (<NavLoggedIn handleLogout={handleLogout} />);
+    } else {
+      return (<NavLoggedOut />);
+    }
+  };
+
   return (
     <div className="header">
-    <Link to="/home"><h1 className="logo">Grace's Bakery</h1></Link>
+      <Link to="/home"><h1 className="logo">Grace's Bakery</h1></Link>
       <nav>
         <NavLink to="/category/all">Shop</NavLink>
-        {
-          isLoggedIn
-            ? <div className="account-info">
-              {/* The navbar will show these NavLinks after you log in */}
-              <NavLink
-                to="/dashboard">
-                Account
-              </NavLink>
-              <NavLink
-                to="/cart">
-                Cart
-              </NavLink>
-              <a
-                id="logout-link"
-                href="#"
-                onClick={handleClick}>
-                Logout
-              </a>
-            </div>
-            : <div className="account-info">
-              {/* The navbar will show these NavLinks before you log in */}
-              <NavLink
-                to="/cart">
-                Cart
-              </NavLink>
-              <NavLink
-                className="account1"
-                to="/login">
-                Login
-              </NavLink>
-              <span className="divider">/</span>
-              <NavLink
-                className="account2"
-                to="/signup">
-                Sign Up
-              </NavLink>
-            </div>
-        }
+        { generateNavLinks(isLoggedIn) }
       </nav>
     </div>
   );
@@ -64,7 +74,7 @@ const mapState = (state) => {
 
 const mapDispatch = (dispatch) => {
   return {
-    handleClick () {
+    handleLogout () {
       dispatch(logout());
       dispatch(removeCart());
     }
@@ -77,7 +87,6 @@ export default withRouter(connect(mapState, mapDispatch)(Nav));
 
 /*** PROP TYPES ***/
 Nav.propTypes = {
-  children: PropTypes.object,
-  handleClick: PropTypes.func.isRequired,
+  handleLogout: PropTypes.func.isRequired,
   isLoggedIn: PropTypes.bool.isRequired
 };
