@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
-import { categoryProducts } from '../store';
+import { categoryProducts, clearProducts } from '../store';
 import ProductIcon from './product-icon';
 
 /*** COMPONENT ***/
@@ -27,6 +27,10 @@ export class Products extends Component {
     if (nextProps.products) {
       this.setState({showProducts: true});
     }
+  }
+
+  componentWillUnmount () {
+    this.props.clearProductsStore();
   }
 
   render() {
@@ -69,6 +73,9 @@ const mapDispatch = (dispatch) => {
   return {
     fetchProducts (cid) {
       dispatch(categoryProducts(cid));
+    },
+    clearProductsStore () {
+      dispatch(clearProducts());
     }
   };
 };
@@ -80,4 +87,5 @@ Products.propTypes = {
   category: PropTypes.object.isRequired,
   products: PropTypes.array,
   fetchProducts: PropTypes.func.isRequired,
+  clearProductsStore: PropTypes.func.isRequired
 };
