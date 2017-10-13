@@ -241,4 +241,5 @@ db.sync({force: true})
   .then(() => seedCategAndProd(category, generateInstances(categoryData), product, productInstances))
   .then(() => testingLogin(user))
   .then(() => console.log('All models have been seeded.'))
+  .then(() => process.exit())
   .catch(err => console.error(err));
