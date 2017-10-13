@@ -6,6 +6,7 @@ const GET_PRODUCT = 'GET_PRODUCT';
 const ADD_PRODUCT = 'ADD_PRODUCT';
 const UPDATE_PRODUCT = 'UPDATE_PRODUCT';
 const DELETE_PRODUCT = 'DELETE_PRODUCT';
+const CLEAR_PRODUCT = 'CLEAR_PRODUCT';
 
 /*** INITIAL STATE ***/
 const defaultState = {
@@ -18,7 +19,8 @@ const getProducts = products => ({type: GET_PRODUCTS, products});
 const getProductById = product => ({type: GET_PRODUCT, product});
 const addProduct = product => ({type: ADD_PRODUCT, product});
 const updateProduct = product => ({type: UPDATE_PRODUCT, product});
-const deleteProduct = product => ({type: DELETE_PRODUCT}, product);
+const deleteProduct = product => ({type: DELETE_PRODUCT, product});
+export const clearProductStore = () => ({type: CLEAR_PRODUCT });
 
 /*** THUNK CREATORS ***/
 export const allProducts = () =>
@@ -67,6 +69,9 @@ export default function (state = defaultState, action) {
       break;
     case UPDATE_PRODUCT:
       newState.product = action.product;
+      break;
+    case CLEAR_PRODUCT:
+      newState.product = defaultState;
       break;
     case DELETE_PRODUCT: {
       let filteredProd = newState.products.filter(prod => {
