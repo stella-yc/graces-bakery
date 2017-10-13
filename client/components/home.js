@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
+/*** SUB-COMPONENT ***/
 const Jumbotron = () => {
   return (
     <div className="jumbotron">
@@ -16,24 +17,7 @@ const Jumbotron = () => {
   );
 };
 
-const About = () => {
-  return (
-    <div className="about">
-      <div className="about-text">
-        <h2>
-          About
-        </h2>
-        <p>
-          Founded in 2017, Grace's Bakery is dedicated to making fresh, delicious baked goods for all occasions.
-        </p>
-        <p>
-          We take pride in offering customers an unparalleled experience, whether they are visiting one of our storefronts or browsing from the comfort of their mobile devices.
-        </p>
-      </div>
-    </div>
-  );
-};
-
+/*** SUB-COMPONENT ***/
 const Descriptor = (props) => {
   return (
     <div className="descriptor">
@@ -56,6 +40,7 @@ const Descriptor = (props) => {
   );
 };
 
+/*** SUB-COMPONENT ***/
 const Ingredients = () => {
   return (
     <div className="ingredients">
@@ -67,6 +52,25 @@ const Ingredients = () => {
               Learn More
             </a>
           </button>
+      </div>
+    </div>
+  );
+};
+
+/*** SUB-COMPONENT ***/
+const About = () => {
+  return (
+    <div className="about">
+      <div className="about-text">
+        <h2>
+          About
+        </h2>
+        <p>
+          Founded in 2017, Grace's Bakery is dedicated to making fresh, delicious baked goods for all occasions.
+        </p>
+        <p>
+          We take pride in offering customers an unparalleled experience, whether they are visiting one of our storefronts or browsing from the comfort of their mobile devices.
+        </p>
       </div>
     </div>
   );
@@ -85,4 +89,3 @@ export const Home = () => {
 };
 
 export default Home;
-
