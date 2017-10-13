@@ -14,7 +14,7 @@ import Categories from './categories';
 import Cart from './cart';
 import PrivateRoute from './private-route';
 import Checkout from './checkout';
-import { me, allProducts, callGetCart } from '../store';
+import { me, callGetCart } from '../store';
 
 
 /*** COMPONENT ***/
