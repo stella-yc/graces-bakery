@@ -1,7 +1,6 @@
 import axios from 'axios';
 
 /*** ACTION TYPES ***/
-const GET_PRODUCTS = 'GET_PRODUCTS';
 const GET_PRODUCT = 'GET_PRODUCT';
 const ADD_PRODUCT = 'ADD_PRODUCT';
 const UPDATE_PRODUCT = 'UPDATE_PRODUCT';
@@ -9,13 +8,9 @@ const DELETE_PRODUCT = 'DELETE_PRODUCT';
 const CLEAR_PRODUCT = 'CLEAR_PRODUCT';
 
 /*** INITIAL STATE ***/
-const defaultState = {
-  products: [],
-  product: {}
-};
+const defaultState = {};
 
 /*** ACTION CREATORS ***/
-const getProducts = products => ({type: GET_PRODUCTS, products});
 const getProductById = product => ({type: GET_PRODUCT, product});
 const addProduct = product => ({type: ADD_PRODUCT, product});
 const updateProduct = product => ({type: UPDATE_PRODUCT, product});
@@ -23,12 +18,6 @@ const deleteProduct = product => ({type: DELETE_PRODUCT, product});
 export const clearProductStore = () => ({type: CLEAR_PRODUCT });
 
 /*** THUNK CREATORS ***/
-export const allProducts = () =>
-  dispatch =>
-    axios.get('/api/products/')
-      .then(res => dispatch(getProducts(res.data)))
-      .catch(err => console.log(err));
-
 export const singleProduct = (pid) =>
   dispatch =>
     axios.get(`/api/products/${pid}`)
@@ -56,33 +45,19 @@ export const deleteProductInfo = (productInfo) =>
 
 /*** REDUCER ***/
 export default function (state = defaultState, action) {
-  let newState = Object.assign({}, state);
   switch (action.type) {
-    case GET_PRODUCTS:
-      newState.products = action.products;
-      break;
     case GET_PRODUCT:
-      newState.product = action.product;
-      break;
+      return action.product;
     case ADD_PRODUCT:
-      newState.product = action.product;
-      break;
+      return action.product;
     case UPDATE_PRODUCT:
-      newState.product = action.product;
-      break;
+      return action.product;
     case CLEAR_PRODUCT:
-      newState.product = defaultState;
-      break;
+      return defaultState;
     case DELETE_PRODUCT: {
-      let filteredProd = newState.products.filter(prod => {
-        return prod.id !== action.product.id;
-      });
-      newState.products = filteredProd;
-      newState.product = {};
-      break;
+      return defaultState;
     }
     default:
-      return newState;
+      return state;
   }
-    return newState;
 }

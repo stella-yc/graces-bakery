@@ -3,7 +3,7 @@ import { Route, Switch, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-import { Login } from './auth-form';
+import Login from './auth-form';
 import Signup from './signup';
 import Nav from './nav';
 import UserHome from './user-home';
@@ -59,7 +59,6 @@ const mapDispatch = (dispatch) => {
   return {
     loadInitialData () {
       dispatch(me());
-      dispatch(allProducts());
       dispatch(callGetCart());
     }
   };

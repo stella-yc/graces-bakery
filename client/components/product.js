@@ -95,7 +95,7 @@ export class Product extends Component {
 /*** CONTAINER ***/
 const mapState = (state) => {
   return {
-    product: state.products.product,
+    product: state.product,
     cart: state.cart
   };
 };
