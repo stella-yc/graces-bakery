@@ -18,3 +18,8 @@ const ProductIcon = (props) => {
 };
 
 export default ProductIcon;
+
+/*** PROP TYPES ***/
+ProductIcon.propTypes = {
+  prod: PropTypes.object.isRequired
+};
