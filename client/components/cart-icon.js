@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 import { sendUpdatedCart, removeProduct } from '../store';
 import QuantityMenu from './quantityMenu';
 
+/*** COMPONENT ***/
 class CartIcon extends Component {
   constructor(props) {
     super(props);
@@ -17,20 +18,19 @@ class CartIcon extends Component {
   }
 
   updateQuantity (event) {
-    let newQuantity = +event.target.value;
-    this.setState({quantity: newQuantity});
-    let prodInfo = {
-      quantity: +newQuantity,
-      productId: this.props.product.id
+    const { cart, product, updateProductQ } = this.props;
+    const newQuantity = +event.target.value;
+    const prodInfo = {
+      quantity: newQuantity,
+      productId: product.id
     };
-    this.props.sendUpdatedCart(this.props.cart.id, prodInfo);
+    this.setState({quantity: newQuantity});
+    updateProductQ(cart.id, prodInfo);
   }
 
-  handleRemove (event) {
-    let prodInfo = {
-      productId: this.props.product.id
-    };
-    this.props.removeProduct(this.props.cart.id, prodInfo);
+  handleRemove () {
+    const { cart, product, removeFromCart } = this.props;
+    removeFromCart(cart.id, { productId: product.id });
   }
 
   render () {
@@ -71,17 +71,27 @@ class CartIcon extends Component {
 }
 
 /*** CONTAINER ***/
-const mapState = (state) => {
+const mapState = state => {
   return {
-    user: state.user,
     cart: state.cart
   };
 };
 
-export default connect(mapState, { sendUpdatedCart, removeProduct })(CartIcon);
+const mapDispatch = dispatch => {
+  return {
+    updateProductQ: (cartId, prodInfo) =>
+      dispatch(sendUpdatedCart(cartId, prodInfo)),
+    removeFromCart: (cartId, prodId) =>
+      dispatch(removeProduct(cartId, prodId))
+  };
+};
+
+export default connect(mapState, mapDispatch)(CartIcon);
 
 /*** PROP TYPES ***/
 CartIcon.propTypes = {
-
+  cart: PropTypes.object.isRequired,
+  updateProductQ: PropTypes.func.isRequired,
+  removeFromCart: PropTypes.func.isRequired
 };
 
