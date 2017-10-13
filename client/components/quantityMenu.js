@@ -1,18 +1,20 @@
 import React from 'react';
 
-const QuantityMenu = (props) => {
-  let { quantity, selected, handleChange } = props;
-  quantity = +quantity;
-  selected = +selected;
+const generateOptions = (quantity) => {
   const values = [];
   for (let i = 1; i <= quantity; i++) {
     values.push(i);
   }
-  const options = values.map(val => {
+  return values.map(val => {
     return (<option key={val} value={val}>{val}</option>);
-  }
+  });
+};
 
-  );
+const QuantityMenu = (props) => {
+  let { quantity, selected, handleChange } = props;
+  quantity = +quantity;
+  selected = +selected;
+
   return (
     <form >
     <div className="form-element">
@@ -21,7 +23,7 @@ const QuantityMenu = (props) => {
         value={selected}
         onChange={handleChange}
       >
-      { options }
+        { generateOptions(quantity) }
       </select>
     </div>
   </form>
