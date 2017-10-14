@@ -7,26 +7,36 @@ module.exports = router;
 
 const CartProducts = Cart.scope('products');
 
+const makeNewCart = (session, res) =>
+  CartProducts.create({})
+    .then(cart => {
+      session.cartId = cart.id;
+      return res.json(cart);
+    });
+
 router
 
   .get('/', (req, res, next) => {
+
     // if the user is NOT logged in
     if (!req.user) {
       // if the user already has a cart
       if (req.session.cartId) {
         return CartProducts.findById(req.session.cartId)
-          .then(cart => res.json(cart))
-          .catch(next);
-      } else {
-      // if the user does not have a cart yet
-        return Cart.create({})
           .then(cart => {
-            req.session.cartId = cart.id;
-            return res.json(cart);
+            if (!cart) {  // in case the cart id does not match up with any in db
+              return makeNewCart(req.session, res);
+            } else {
+              return res.json(cart);
+            }
           })
           .catch(next);
-        }
+      }
+      // if the user does not have a cart yet
+        return makeNewCart(session, res)
+          .catch(next);
     }
+
     // if the user is logged in
     return CartProducts.findOrCreate({
       where: { userId: req.user.id }
