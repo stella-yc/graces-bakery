@@ -64,14 +64,15 @@ describe('<Login /> and <Signup />', () => {
     expect(wrapper.state().password).to.be.equal(password);
   });
 
-  it('Submitting form invokes this.props.auth', () => {
+  it('Submitting form invokes this.props.login', () => {
     let spy = sinon.spy();
-    let wrapper = shallow(<AuthForm
-      name={'signup'}
-      displayName={'Sign Up'}
-      error={null}
-      isLoggedIn={false}
-      auth={spy}
+    let wrapper = shallow(
+      <AuthForm
+        name={'signup'}
+        displayName={'Sign Up'}
+        error={null}
+        isLoggedIn={false}
+        login={spy}
       />,
       { context: { store }}
     );
