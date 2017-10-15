@@ -3,22 +3,22 @@
 import setup from './setup.spec.js';
 import { expect } from 'chai';
 import React from 'react';
-import { shallow, mount, render } from 'enzyme';
+import { shallow, mount } from 'enzyme';
 import { AuthForm } from './auth-form';
-import store, { auth } from '../store';
+import store from '../store';
 import sinon from 'sinon';
-import { UserHome } from './user-home';
 import { MemoryRouter as Router, Redirect } from 'react-router-dom';
 
 describe('<Login /> and <Signup />', () => {
 
   it('AuthForm component displays Login or Signup', () => {
-    let wrapper = shallow(<AuthForm
-      name={'login'}
-      displayName={'Login'}
-      error={null}
-      isLoggedIn={false}
-      auth={auth}
+    let wrapper = shallow(
+      <AuthForm
+        name={'login'}
+        displayName={'Login'}
+        error={null}
+        isLoggedIn={false}
+        login={() => true}
       />,
       { context: { store }}
     );
@@ -28,12 +28,13 @@ describe('<Login /> and <Signup />', () => {
   });
 
   it('Signup component displays signup, not Login', () => {
-    let wrapper = shallow(<AuthForm
+    let wrapper = shallow(
+    <AuthForm
       name={'signup'}
       displayName={'Sign Up'}
       error={null}
       isLoggedIn={false}
-      auth={auth}
+      login={() => true}
       />,
       { context: { store }}
     );
@@ -43,12 +44,13 @@ describe('<Login /> and <Signup />', () => {
   });
 
   it('handleChange sets controlled component state', () => {
-    let wrapper = shallow(<AuthForm
-      name={'signup'}
-      displayName={'Sign Up'}
-      error={null}
-      isLoggedIn={false}
-      auth={auth}
+    let wrapper = shallow(
+      <AuthForm
+        name={'signup'}
+        displayName={'Sign Up'}
+        error={null}
+        isLoggedIn={false}
+        login={() => true}
       />,
       { context: { store }}
     );
@@ -92,7 +94,7 @@ describe('<Login /> and <Signup />', () => {
       displayName={'Sign Up'}
       error={null}
       isLoggedIn={true}
-      auth={auth}
+      login={() => true}
       />,
       { context: { store }}
     );
@@ -106,7 +108,9 @@ describe('<Login /> and <Signup />', () => {
           name={'signup'}
           displayName={'Sign Up'}
           error={null}
-          isLoggedIn={true} />
+          isLoggedIn={true}
+          login={() => true}
+        />
       </Router>,
         { context: { store }}
     );

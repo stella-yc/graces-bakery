@@ -13,7 +13,10 @@ describe('<Nav />', () => {
 it('if logged out, it renders Login/Sign Up', () => {
   let wrapper = mount(
     <Router>
-      <Nav />
+      <Nav
+        isLoggedIn={false}
+        handleLogout={() => true}
+      />
     </Router>,
     { context: { store }}
   );
@@ -30,7 +33,9 @@ it('if logged out, it renders Login/Sign Up', () => {
     let wrapper = mount(
       <Router>
         <Nav
-          isLoggedIn={true} />
+          isLoggedIn={true}
+          handleLogout={() => true}
+        />
       </Router>,
     { context: { store }}
   );

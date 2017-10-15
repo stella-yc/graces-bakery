@@ -11,7 +11,9 @@ describe('<PrivateRoute />', () => {
 
 it('returns a Route', () => {
   let wrapper = shallow(
-      <PrivateRoute />,
+      <PrivateRoute
+        isLoggedIn={false}
+      />,
     { context: { store }}
   );
   expect(wrapper.find(Route)).to.have.length(1);
