@@ -17,12 +17,12 @@ it('if logged out, it renders Login/Sign Up', () => {
     </Router>,
     { context: { store }}
   );
-  expect(wrapper.find(NavLink)).to.have.length(6);
+  expect(wrapper.find(NavLink)).to.have.length(4);
   expect(wrapper.find('.account1')).to.have.length(1);
   expect(wrapper.find('.account2')).to.have.length(1);
   expect(wrapper.text()).to.have.string('Login');
   expect(wrapper.text()).to.have.string('Sign Up');
-  expect(wrapper.text()).to.not.have.string('My Account');
+  expect(wrapper.text()).to.not.have.string('Account');
 });
 
 
@@ -34,9 +34,9 @@ it('if logged out, it renders Login/Sign Up', () => {
       </Router>,
     { context: { store }}
   );
-  expect(wrapper.find(NavLink)).to.have.length(5);
+  expect(wrapper.find(NavLink)).to.have.length(3);
   expect(wrapper.text()).to.have.string('Logout');
-  expect(wrapper.text()).to.have.string('My Account');
+  expect(wrapper.text()).to.have.string('Account');
   expect(wrapper.text()).to.not.have.string('Login');
   });
 
@@ -46,7 +46,7 @@ it('if logged out, it renders Login/Sign Up', () => {
       <Router>
         <Nav
           isLoggedIn={true}
-          handleClick={spy}
+          handleLogout={spy}
           />
       </Router>,
     { context: { store }}
