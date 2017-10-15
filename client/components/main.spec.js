@@ -17,17 +17,21 @@ describe('<Main />', () => {
 
   it('renders Route components', () => {
     let wrapper = shallow(
-        <Main />,
+        <Main
+          loadInitialData={() => true}
+          isLoggedIn={true}
+        />,
       { context: { store }}
     );
-    expect(wrapper.find(Route)).to.have.length(5);
+    expect(wrapper.find(Route)).to.have.length(9);
   });
 
   it('invokes this.props.loadInitialData', () => {
     let spy = sinon.spy();
     let wrapper = shallow(
         <Main
-        loadInitialData={spy}
+          loadInitialData={spy}
+          isLoggedIn={false}
         />,
       { context: { store },
         lifecycleExperimental: true
