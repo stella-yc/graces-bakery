@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 /*** SUB-COMPONENT ***/
-const Jumbotron = () => {
+export const Jumbotron = () => {
   return (
     <div className="jumbotron">
       <h1 className="jumbotron-text">
@@ -18,7 +18,7 @@ const Jumbotron = () => {
 };
 
 /*** SUB-COMPONENT ***/
-const Descriptor = (props) => {
+export const Descriptor = (props) => {
   return (
     <div className="descriptor">
       <h1>What we do</h1>
@@ -41,7 +41,7 @@ const Descriptor = (props) => {
 };
 
 /*** SUB-COMPONENT ***/
-const Ingredients = () => {
+export const Ingredients = () => {
   return (
     <div className="ingredients">
       <div className="ingred-text">
@@ -58,7 +58,7 @@ const Ingredients = () => {
 };
 
 /*** SUB-COMPONENT ***/
-const About = () => {
+export const About = () => {
   return (
     <div className="about">
       <div className="about-text">
