@@ -6,7 +6,7 @@ import { mount } from 'enzyme';
 import { Nav } from './nav';
 import store from '../store';
 import sinon from 'sinon';
-import { BrowserRouter as Router, NavLink } from 'react-router-dom';
+import { MemoryRouter as Router, NavLink } from 'react-router-dom';
 
 describe('<Nav />', () => {
 
