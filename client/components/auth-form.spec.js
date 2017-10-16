@@ -1,17 +1,18 @@
 /* global describe beforeEach it */
 
-import setup from './setup.spec.js';
 import { expect } from 'chai';
 import React from 'react';
 import { shallow, mount } from 'enzyme';
-import { AuthForm } from './auth-form';
-import store from '../store';
 import sinon from 'sinon';
 import { MemoryRouter as Router, Redirect } from 'react-router-dom';
 
-describe('<Login /> and <Signup />', () => {
+import setup from './setup.spec.js';
+import { AuthForm } from './auth-form';
+import store from '../store';
 
-  it('AuthForm component displays Login or Signup', () => {
+describe('<Login />', () => {
+
+  it('AuthForm component displays Login', () => {
     let wrapper = shallow(
       <AuthForm
         name={'login'}
@@ -25,22 +26,6 @@ describe('<Login /> and <Signup />', () => {
     expect(wrapper.find('h3')).to.have.length(1);
     expect(wrapper.find('h3').text()).to.be.equal('Login');
     expect(wrapper.text()).to.not.contain('Sign Up');
-  });
-
-  it('Signup component displays signup, not Login', () => {
-    let wrapper = shallow(
-    <AuthForm
-      name={'signup'}
-      displayName={'Sign Up'}
-      error={null}
-      isLoggedIn={false}
-      login={() => true}
-      />,
-      { context: { store }}
-    );
-    expect(wrapper.find('h3')).to.have.length(1);
-    expect(wrapper.find('h3').text()).to.be.equal('Sign Up');
-    expect(wrapper.text()).to.not.contain('Login');
   });
 
   it('handleChange sets controlled component state', () => {
