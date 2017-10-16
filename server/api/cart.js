@@ -33,7 +33,7 @@ router
           .catch(next);
       }
       // if the user does not have a cart yet
-        return makeNewCart(session, res)
+        return makeNewCart(req.session, res)
           .catch(next);
     }
 
