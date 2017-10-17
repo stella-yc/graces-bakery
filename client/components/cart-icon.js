@@ -7,7 +7,7 @@ import { sendUpdatedCart, removeProduct } from '../store';
 import QuantityMenu from './quantityMenu';
 
 /*** COMPONENT ***/
-class CartIcon extends Component {
+export class CartIcon extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -92,6 +92,7 @@ export default connect(mapState, mapDispatch)(CartIcon);
 CartIcon.propTypes = {
   cart: PropTypes.object.isRequired,
   updateProductQ: PropTypes.func.isRequired,
-  removeFromCart: PropTypes.func.isRequired
+  removeFromCart: PropTypes.func.isRequired,
+  product: PropTypes.object.isRequired
 };
 
