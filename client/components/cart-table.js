@@ -3,16 +3,17 @@ import PropTypes from 'prop-types';
 
 import CartIcon from './cart-icon';
 
-const CartTable = (props) => {
+export const EmptyCart = () => {
+  return (
+    <div>
+      <h2>Your Cart is Empty!</h2>
+      <h2>:(</h2>
+    </div>
+  );
+};
+
+export const FilledCart = (props) => {
   const { products } = props;
-  if (!products || products.length === 0) {
-    return (
-      <div>
-        <h2>Your Cart is Empty!</h2>
-        <h2>:(</h2>
-      </div>
-    );
-  }
   return (
     <table className="cart-table">
       <thead className="cart-table-header">
@@ -34,6 +35,17 @@ const CartTable = (props) => {
     }
     </tbody>
     </table>
+  );
+}
+const CartTable = (props) => {
+  const { products } = props;
+  if (!products || products.length === 0) {
+    return (
+      <EmptyCart />
+    );
+  }
+  return (
+    <FilledCart products={products} />
   );
 };
 
