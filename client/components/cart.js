@@ -13,7 +13,7 @@ export class Cart extends Component {
     super(props);
     this.state = {
       showCart: false,
-      subTotal: 0.00
+      subTotal: '0.00'
     };
     this.calculateSubTotal = this.calculateSubTotal.bind(this);
   }
@@ -39,7 +39,8 @@ export class Cart extends Component {
 
   calculateSubTotal (cart) {
     if (!cart.products) {
-      return this.setState({ subTotal: 0.00 });
+      let zero = (0.00).toFixed(2);
+      return this.setState({ subTotal: zero });
     }
     let subTotal = cart.products.reduce((acc, prod) => {
       let sum = prod.price * prod.CartDetail.quantity;
