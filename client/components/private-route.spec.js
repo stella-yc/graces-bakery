@@ -12,7 +12,7 @@ describe('<PrivateRoute />', () => {
 it('returns a Route', () => {
   let wrapper = shallow(
       <PrivateRoute
-        isLoggedIn={false}
+        isLoggedIn={true}
       />,
     { context: { store }}
   );
@@ -35,6 +35,7 @@ it('renders a component if logged in', () => {
     { context: { store }}
   );
   expect(wrapper.find(comp)).to.have.length(1);
+  expect(wrapper.find(Redirect)).to.have.length(0);
   expect(wrapper.find('h1')).to.have.length(1);
   expect(wrapper.find('h1').text()).to.equal('Hello');
 });
@@ -56,5 +57,6 @@ it('renders a Redirect if not logged in', () => {
   );
   expect(wrapper.find(comp)).to.have.length(0);
   expect(wrapper.find(Redirect)).to.have.length(1);
+  expect(wrapper.find('h1')).to.have.length(0);
 });
 });
