@@ -6,7 +6,7 @@ import { withRouter, Link } from 'react-router-dom';
 import { allCategories } from '../store';
 
 /*** PRESENTATIONAL SUB-COMPONENT ***/
-const Category = (props) => {
+export const Category = (props) => {
   const { name, displayName, image } = props.cat;
   return (
     <div className="category">
