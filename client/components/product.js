@@ -122,5 +122,6 @@ Product.propTypes = {
   cart: PropTypes.object.isRequired,
   fetchProductInfo: PropTypes.func.isRequired,
   addToCart: PropTypes.func.isRequired,
-  clearProduct: PropTypes.func.isRequired
+  clearProduct: PropTypes.func.isRequired,
+  match: PropTypes.object.isRequired
 };
