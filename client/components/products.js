@@ -8,24 +8,17 @@ import ProductIcon from './product-icon';
 
 /*** COMPONENT ***/
 export class Products extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      showProducts: false
-    };
-  }
 
   componentDidMount () {
     this.props.fetchProducts(this.props.match.params.cid);
-    window.scrollTo(0, 0);
+    if (window) {
+      window.scrollTo(0, 0);
+    }
   }
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.match.params.cid !== this.props.match.params.cid) {
       this.props.fetchProducts(nextProps.match.params.cid);
-    }
-    if (nextProps.products) {
-      this.setState({showProducts: true});
     }
   }
 
@@ -87,5 +80,6 @@ Products.propTypes = {
   category: PropTypes.object.isRequired,
   products: PropTypes.array,
   fetchProducts: PropTypes.func.isRequired,
-  clearProductsStore: PropTypes.func.isRequired
+  clearProductsStore: PropTypes.func.isRequired,
+  match: PropTypes.object.isRequired
 };
