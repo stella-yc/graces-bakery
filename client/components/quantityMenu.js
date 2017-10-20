@@ -1,6 +1,7 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
-const generateOptions = (quantity) => {
+export const generateOptions = (quantity) => {
   const values = [];
   for (let i = 1; i <= quantity; i++) {
     values.push(i);
@@ -31,3 +32,10 @@ const QuantityMenu = (props) => {
 };
 
 export default QuantityMenu;
+
+/*** PROP TYPES ***/
+QuantityMenu.propTypes = {
+  quantity: PropTypes.number.isRequired,
+  selected: PropTypes.number.isRequired,
+  handleChange: PropTypes.func.isRequired
+};
