@@ -12,7 +12,7 @@ import CartTable, { FilledCart, EmptyCart } from './cart-table';
 import store from '../store';
 import QuantityMenu from './quantityMenu';
 
-describe('CartTable', () => {
+describe('<CartTable />', () => {
   const dummyProds = [
     {
       id: 2,

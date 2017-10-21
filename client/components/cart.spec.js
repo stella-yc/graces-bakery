@@ -11,7 +11,7 @@ import { Cart } from './cart';
 import CartTable from './cart-table';
 import store from '../store';
 
-describe('CartTable', () => {
+describe('<Cart />', () => {
   const dummyCart =
   {
     id: 10,
