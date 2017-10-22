@@ -2,15 +2,12 @@
 
 import React from 'react';
 import { expect } from 'chai';
-import { shallow, mount } from 'enzyme';
-import sinon from 'sinon';
-import { MemoryRouter as Router, Link } from 'react-router-dom';
-import { Provider } from 'react-redux';
+import { mount } from 'enzyme';
+import { MemoryRouter as Router } from 'react-router-dom';
 
 import ProductIcon from './product-icon';
-import store from '../store';
 
-describe('ProductIcon Component', () => {
+describe('<ProductIcon />', () => {
   const bun = {
     id: 1,
     name: 'Curry Bun',

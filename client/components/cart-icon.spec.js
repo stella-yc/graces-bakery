@@ -10,7 +10,7 @@ import { CartIcon } from './cart-icon';
 import store from '../store';
 import QuantityMenu from './quantityMenu';
 
-describe('CartIcon', () => {
+describe('<CartIcon />', () => {
   let wrapper;
 
   const dummyCart = {

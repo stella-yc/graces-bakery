@@ -6,7 +6,7 @@ import { shallow } from 'enzyme';
 
 import Checkout from './checkout';
 
-describe('Checkout Component', () => {
+describe('<Checkout />', () => {
 
   it('renders checkout message and image', () => {
     const wrapper = shallow(

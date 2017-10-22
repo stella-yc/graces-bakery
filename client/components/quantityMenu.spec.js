@@ -7,7 +7,7 @@ import sinon from 'sinon';
 
 import QuantityMenu, { generateOptions } from './quantityMenu';
 
-describe('QuantityMenu Component', () => {
+describe('<QuantityMenu />', () => {
   let wrapper, spy;
   const quantity = 5;
   const selected = 3;

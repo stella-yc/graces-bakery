@@ -10,7 +10,7 @@ import { Provider } from 'react-redux';
 import { Categories, Category } from './categories';
 import store from '../store';
 
-describe('Category Component', () => {
+describe('<Categories />', () => {
   const cookies = [
     {
       id: 1,

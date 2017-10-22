@@ -10,7 +10,7 @@ import { Products } from './products';
 import ProductIcon from './product-icon';
 import store from '../store';
 
-describe('Products Component', () => {
+describe('<Products />', () => {
   const products = [{
     id: 1,
     name: 'Curry Bun',

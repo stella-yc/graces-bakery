@@ -7,7 +7,7 @@ import sinon from 'sinon';
 
 import { UserHome } from './user-home';
 
-describe('UserHome', () => {
+describe('<UserHome />', () => {
   let userHome;
   const dummyUser = {
     firstName: 'Spongebob',
