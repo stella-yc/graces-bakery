@@ -12,7 +12,6 @@ import QuantityMenu from './quantityMenu';
 
 describe('CartIcon', () => {
   let wrapper;
-  let shallowWrapper;
 
   const dummyCart = {
     id: 1
@@ -31,19 +30,8 @@ describe('CartIcon', () => {
   beforeEach(() => {
     removeSpy = sinon.spy();
     updateQspy = sinon.spy();
-    wrapper = mount(
-      <Router>
-        <CartIcon
-          cart={dummyCart}
-          updateProductQ={updateQspy}
-          removeFromCart={removeSpy}
-          product={dummyProd}
-        />
-      </Router>,
-      { context: { store }}
-    );
 
-    shallowWrapper = shallow(
+    wrapper = shallow(
       <CartIcon
       cart={dummyCart}
       updateProductQ={updateQspy}
@@ -54,17 +42,17 @@ describe('CartIcon', () => {
   });
 
   it('renders the product information', () => {
-    expect(shallowWrapper.text()).to.have.string('20.00');
-    expect(shallowWrapper.text()).to.not.have.string('19.95');
+    expect(wrapper.text()).to.have.string('20.00');
+    expect(wrapper.text()).to.not.have.string('19.95');
   });
 
   it('renders the QuantityMenu Component', () => {
-    expect(shallowWrapper.find(QuantityMenu)).to.have.length(1);
+    expect(wrapper.find(QuantityMenu)).to.have.length(1);
   });
 
   it('updateQuantity invokes updateProductQ thunk action creator', () => {
     expect(updateQspy.called).to.be.equal(false);
-    const instance = shallowWrapper.instance();
+    const instance = wrapper.instance();
     let event = {target: { value: 5 }};
     instance.updateQuantity(event);
     expect(updateQspy.called).to.be.equal(true);
@@ -75,15 +63,15 @@ describe('CartIcon', () => {
 
   it('updateQuantity updates state with the new quantity', () => {
     expect(updateQspy.called).to.be.equal(false);
-    const instance = shallowWrapper.instance();
+    const instance = wrapper.instance();
     const event = {target: { value: 5 }};
     instance.updateQuantity(event);
-    expect(shallowWrapper.state('quantity')).to.be.equal(5);
+    expect(wrapper.state('quantity')).to.be.equal(5);
   });
 
   it('when remove-product-btn is clicked, removeFromCart is invoked', () => {
     expect(removeSpy.called).to.be.equal(false);
-    shallowWrapper.find('.remove-product-btn').simulate('click');
+    wrapper.find('.remove-product-btn').simulate('click');
     expect(removeSpy.called).to.be.equal(true);
     expect(removeSpy.calledWith(dummyCart.id)).to.equal(true);
     expect(removeSpy.args[0][1].productId).to.equal(dummyProd.id);
