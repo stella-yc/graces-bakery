@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { withRouter, Redirect } from 'react-router-dom';
 
@@ -10,8 +10,6 @@ export class Signup extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      redirectToHome: this.props.isLoggedIn || false,
-      formName: this.props.name,
       firstName: '',
       lastName: '',
       email: '',
@@ -22,14 +20,9 @@ export class Signup extends Component {
 
   submitAuth(event) {
     event.preventDefault();
-    const { firstName, lastName, email, password, formName } = this.state;
+    const { firstName, lastName, email, password } = this.state;
+    const formName = this.props.name;
     this.props.signup(firstName, lastName, email, password, formName);
-  }
-
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.isLoggedIn) {
-      this.setState({redirectToHome: true});
-    }
   }
 
   handleChange(field) {
@@ -42,8 +35,8 @@ export class Signup extends Component {
   }
 
   render () {
-    const {name, displayName, error } = this.props;
-    if (this.state.redirectToHome) {
+    const {name, displayName, error, isLoggedIn } = this.props;
+    if (isLoggedIn) {
       return <Redirect to="/home" />;
     }
     return (

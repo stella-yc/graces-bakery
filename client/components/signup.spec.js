@@ -74,21 +74,6 @@ describe('<Signup />', () => {
     expect(spy.alwaysCalledWithExactly(firstName, lastName, email, password, formName)).to.be.equal(true);
   });
 
-  it('when new props isLoggedIn is true, it updates state', () => {
-    let wrapper = shallow(
-      <Signup
-        name={'signup'}
-        displayName={'Sign Up'}
-        error={null}
-        isLoggedIn={false}
-        signup={placeholder}
-      />
-    );
-    expect(wrapper.state('redirectToHome')).to.equal(false);
-    wrapper.setProps({isLoggedIn: true});
-    expect(wrapper.state('redirectToHome')).to.equal(true);
-  });
-
   it('when isLoggedIn is true, it renders Redirect', () => {
     let wrapper = mount(
       <Router>
