@@ -10,8 +10,6 @@ export class AuthForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      redirectToHome: this.props.isLoggedIn || false,
-      formName: this.props.name,
       email: '',
       password: ''
     };
@@ -20,14 +18,9 @@ export class AuthForm extends Component {
 
   submitAuth(evt) {
     evt.preventDefault();
-    const { formName, email, password } = this.state;
+    const { email, password } = this.state;
+    const formName = this.props.name;
     this.props.login(email, password, formName);
-  }
-
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.isLoggedIn) {
-      this.setState({redirectToHome: true});
-    }
   }
 
   handleChange(field) {
@@ -40,8 +33,8 @@ export class AuthForm extends Component {
   }
 
   render () {
-    const {name, displayName, error } = this.props;
-    if (this.state.redirectToHome) {
+    const { name, displayName, error, isLoggedIn } = this.props;
+    if (isLoggedIn) {
       return <Redirect to="/home" />;
     }
     return (
